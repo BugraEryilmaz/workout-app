@@ -1,0 +1,14 @@
+[build]
+target = "./index.html"
+
+[watch]
+ignore = ["./src-tauri", "stylance.css"]
+
+[serve]
+port = 1420
+open = false
+
+[[hooks]]
+stage = "pre_build"
+command = "stylance"
+command_arguments = ["."]
