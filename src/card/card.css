@@ -1,0 +1,41 @@
+.card-img{
+    height: 80px;
+    object-fit: cover;
+    aspect-ratio: 16/9;
+    border-radius: 5px;
+}
+.card-body {
+    margin: 5px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background-color:rgb(255, 255, 255);
+    border-radius: 10px;
+}
+.card-thumbnail {
+    margin: 9px;
+    height: 75px;
+}
+.card-duration {
+    background-color: RGBA(0, 0, 0, 0.5);
+    color: white;
+    border-radius: 5px;
+    position: relative;
+    top: -50px;
+    left: 90px;
+    width: 50px;
+}
+.done {
+    background-color: RGBA(0, 255, 0, 0.1);
+    color: RGBA(0, 0, 0, 0.5);
+    filter: brightness(0.8) opacity(0.5);
+}
+.card-done {
+    background-color: RGBA(0, 0, 0, 0.5);
+    border-radius: 50%;
+    position: relative;
+    top: -120px;
+    left: 0px;
+    width: 35px;
+    height: 35px;
+}

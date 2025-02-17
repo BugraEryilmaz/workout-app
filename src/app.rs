@@ -5,11 +5,11 @@ use leptos::prelude::*;
 use serde::{Deserialize, Serialize};
 use wasm_bindgen::prelude::*;
 
-use crate::models::Workout;
-use crate::card::Card;
-use crate::week::Week;
+use crate::utils::models::Workout;
+use crate::card::card::Card;
+use crate::week::week::Week;
 
-use crate::invoke::invoke;
+use crate::utils::invoke::invoke;
 
 #[derive(Serialize, Deserialize)]
 struct DateArgs {
@@ -34,16 +34,7 @@ pub fn App() -> impl IntoView {
         });
     });
     
-    spawn_local(async move {
-        // let name = String::from("Hello, ! You've been greeted from Rusasddsat!");
-        let arg = serde_wasm_bindgen::to_value(&DateArgs {
-            date: chrono::Local::now().date_naive(),
-        }).expect("datetime should be serializable to JSvalue");
-        let name_json = invoke("get_workouts_of", arg).await;
-        let name: Vec<Workout> = serde_wasm_bindgen::from_value(name_json).unwrap();
-        println!("name: {:?}", name);
-        set_today_workouts.set(name);
-    });
+    set_active_day.set(chrono::Local::now().date_naive());
 
     view! {
         <main class="container">

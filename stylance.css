@@ -1,10 +1,10 @@
-.card-img-e7588e6{
+.card-img-36b2a85{
     height: 80px;
     object-fit: cover;
     aspect-ratio: 16/9;
     border-radius: 5px;
 }
-.card-body-e7588e6 {
+.card-body-36b2a85 {
     margin: 5px;
     display: flex;
     flex-direction: row;
@@ -12,11 +12,11 @@
     background-color:rgb(255, 255, 255);
     border-radius: 10px;
 }
-.card-thumbnail-e7588e6 {
+.card-thumbnail-36b2a85 {
     margin: 9px;
     height: 75px;
 }
-.card-duration-e7588e6 {
+.card-duration-36b2a85 {
     background-color: RGBA(0, 0, 0, 0.5);
     color: white;
     border-radius: 5px;
@@ -25,12 +25,12 @@
     left: 90px;
     width: 50px;
 }
-.done-e7588e6 {
+.done-36b2a85 {
     background-color: RGBA(0, 255, 0, 0.1);
     color: RGBA(0, 0, 0, 0.5);
     filter: brightness(0.8) opacity(0.5);
 }
-.card-done-e7588e6 {
+.card-done-36b2a85 {
     background-color: RGBA(0, 0, 0, 0.5);
     border-radius: 50%;
     position: relative;
@@ -41,35 +41,35 @@
 }
 
 
-.week-20fe7f2 {
+.week-cf35d10 {
     display: flex;
     flex-direction: row;
     align-items: center;
 }
-.calendar-20fe7f2 {
+.calendar-cf35d10 {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
-.btn-20fe7f2 {
+.btn-cf35d10 {
     margin: 0px;
     width: 80px;
     height: 55px;
     margin-top: 5px;
 }
-.btn-today-20fe7f2 {
+.btn-today-cf35d10 {
     margin: 0px;
     width: 80px;
     height: 35px;
     padding-bottom: 10px;
 }
-.active-20fe7f2 {
+.active-cf35d10 {
     background-color: rgba(0, 0, 0, 0.1);
 }
-.today-20fe7f2 {
+.today-cf35d10 {
     border: 3px solid rgba(193, 6, 6, 0.5);
 }
-.day-20fe7f2 {
+.day-cf35d10 {
     display: flex;
     flex-direction: column;
     align-items: center;
