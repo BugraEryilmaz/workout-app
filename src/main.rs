@@ -1,7 +1,6 @@
 mod app;
 mod utils;
-mod card;
-mod week;
+mod current_workout;
 
 use app::*;
 use leptos::prelude::*;

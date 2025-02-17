@@ -1,10 +1,10 @@
-.card-img-36b2a85{
+.card-img-50f23ff{
     height: 80px;
     object-fit: cover;
     aspect-ratio: 16/9;
     border-radius: 5px;
 }
-.card-body-36b2a85 {
+.card-body-50f23ff {
     margin: 5px;
     display: flex;
     flex-direction: row;
@@ -12,11 +12,11 @@
     background-color:rgb(255, 255, 255);
     border-radius: 10px;
 }
-.card-thumbnail-36b2a85 {
+.card-thumbnail-50f23ff {
     margin: 9px;
     height: 75px;
 }
-.card-duration-36b2a85 {
+.card-duration-50f23ff {
     background-color: RGBA(0, 0, 0, 0.5);
     color: white;
     border-radius: 5px;
@@ -25,12 +25,12 @@
     left: 90px;
     width: 50px;
 }
-.done-36b2a85 {
+.done-50f23ff {
     background-color: RGBA(0, 255, 0, 0.1);
     color: RGBA(0, 0, 0, 0.5);
     filter: brightness(0.8) opacity(0.5);
 }
-.card-done-36b2a85 {
+.card-done-50f23ff {
     background-color: RGBA(0, 0, 0, 0.5);
     border-radius: 50%;
     position: relative;
@@ -41,35 +41,35 @@
 }
 
 
-.week-cf35d10 {
+.week-767755e {
     display: flex;
     flex-direction: row;
     align-items: center;
 }
-.calendar-cf35d10 {
+.calendar-767755e {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
-.btn-cf35d10 {
+.btn-767755e {
     margin: 0px;
     width: 80px;
     height: 55px;
     margin-top: 5px;
 }
-.btn-today-cf35d10 {
+.btn-today-767755e {
     margin: 0px;
     width: 80px;
     height: 35px;
     padding-bottom: 10px;
 }
-.active-cf35d10 {
+.active-767755e {
     background-color: rgba(0, 0, 0, 0.1);
 }
-.today-cf35d10 {
+.today-767755e {
     border: 3px solid rgba(193, 6, 6, 0.5);
 }
-.day-cf35d10 {
+.day-767755e {
     display: flex;
     flex-direction: column;
     align-items: center;
