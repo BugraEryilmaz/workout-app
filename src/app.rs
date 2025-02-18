@@ -1,33 +1,39 @@
 use leptos::prelude::*;
 
-use crate::current_workout::CurrentWorkout;
+use crate::{current_workout::CurrentWorkout, workout_list::WorkoutList};
 
 
 
 #[component]
 pub fn App() -> impl IntoView {
-    let (active_page, set_active_page) = signal("current-workout".to_string());
+    let (active_page, set_active_page) = signal("workout-list".to_string());
+    // let (active_page, set_active_page) = signal("current-workout".to_string());
 
     view! {
         <main class="container">
-            <div class="workout-list"
-                style:visibility=move || {if active_page.get() == "current-workout" { "visible" } else { "hidden" }}
+            <Show
+                when=move || active_page.get() == "current-workout"
             >
-                <CurrentWorkout />
-            </div>
-            <div class="workout-list"
-                style:visibility=move || {if active_page.get() == "workout-list" { "visible" } else { "hidden" }}
+                <CurrentWorkout/>
+            </Show>
+            <Show
+                when=move || active_page.get() == "workout-list"
             >
-            </div>
+                <WorkoutList/>
+            </Show>
             <div
                 style="position: fixed; bottom: 1em; width: 100%; display: flex; justify-content: space-evenly;"
             >
                 <button on:click={move |_| {
                     set_active_page.set("current-workout".to_string());
-                }}>Current Workout</button>
+                    }}
+                    style:border=move || {if active_page.get() == "current-workout" { "2px solid black" } else { "none" }}
+                >Current Workout</button>
                 <button on:click={move |_| {
                     set_active_page.set("workout-list".to_string());
-                }}>Workout List</button>
+                    }}
+                    style:border=move || {if active_page.get() == "workout-list" { "2px solid black" } else { "none" }}
+                >Workout List</button>
             </div>
         </main>
     }

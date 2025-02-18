@@ -1,17 +1,14 @@
 -- Your SQL goes here
 CREATE TABLE IF NOT EXISTS programs (
     id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-    done BOOLEAN NOT NULL DEFAULT FALSE,
-    finish_date DATE,
-    start_date DATE,
     title VARCHAR(255) NOT NULL,
     active BOOLEAN NOT NULL DEFAULT FALSE,
     image VARCHAR(255)
 );
 
-INSERT INTO programs (title, start_date, active) VALUES
-('30 Days of Yoga', '2025-02-09', TRUE),
-('10 Days of Abs', '2025-02-10', FALSE);
+INSERT INTO programs (title, active) VALUES
+('30 Days of Yoga', TRUE),
+('10 Days of Abs', FALSE);
 
 CREATE TABLE IF NOT EXISTS days (
     id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,

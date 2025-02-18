@@ -13,9 +13,6 @@ diesel::table! {
 diesel::table! {
     programs (id) {
         id -> Integer,
-        done -> Bool,
-        finish_date -> Nullable<Date>,
-        start_date -> Nullable<Date>,
         title -> Text,
         active -> Bool,
         image -> Nullable<Text>,

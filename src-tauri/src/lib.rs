@@ -92,6 +92,61 @@ fn open(workout: Workout, app_handle: tauri::AppHandle) {
 
 }
 
+#[tauri::command]
+async fn get_programs(app: tauri::AppHandle) -> Vec<Program> {
+    let conn = &mut establish_connection(&app);
+    let programs = programs::table
+        .load::<Program>(conn)
+        .expect("Error loading programs");
+    programs
+}
+
+#[tauri::command]
+async fn activate_program(program: Program, app: tauri::AppHandle) {
+    let conn = &mut establish_connection(&app);
+    diesel::update(programs::dsl::programs)
+        .set(programs::dsl::active.eq(false))
+        .execute(conn)
+        .expect("Error updating programs");
+    diesel::update(programs::dsl::programs)
+        .filter(programs::dsl::id.eq(program.id))
+        .set(programs::dsl::active.eq(true))
+        .execute(conn)
+        .expect("Error updating programs");
+}
+
+#[tauri::command]
+async fn deactivate_program(program: Program, app: tauri::AppHandle) {
+    let conn = &mut establish_connection(&app);
+    diesel::update(programs::dsl::programs)
+        .filter(programs::dsl::id.eq(program.id))
+        .set(programs::dsl::active.eq(false))
+        .execute(conn)
+        .expect("Error updating programs");
+}
+
+#[tauri::command]
+async fn clear_progress(program: Program, app: tauri::AppHandle) {
+    let conn = &mut establish_connection(&app);
+    diesel::update(days::dsl::days)
+        .filter(days::dsl::program_id.eq(program.id))
+        .set((
+            days::dsl::done.eq(false),
+            days::dsl::complete_date.eq(None::<String>)
+        ))
+        .execute(conn)
+        .expect("Error updating days");
+    diesel::update(workouts::dsl::workouts)
+        .filter(workouts::dsl::day_id.eq_any(
+            days::table
+                .filter(days::dsl::program_id.eq(program.id))
+                .select(days::dsl::id)
+        ))
+        .set(workouts::dsl::done.eq(false))
+        .execute(conn)
+        .expect("Error updating workouts");
+}
+
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
     tauri::Builder::default()
@@ -122,7 +177,10 @@ pub fn run() {
             Ok(())
         })
         .plugin(tauri_plugin_opener::init())
-        .invoke_handler(tauri::generate_handler![get_workouts_of, open])
+        .invoke_handler(tauri::generate_handler![
+            get_workouts_of, open, get_programs,
+            activate_program, deactivate_program, clear_progress
+        ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }

@@ -26,7 +26,7 @@ pub fn Week(active_date: ReadSignal<chrono::NaiveDate>, set_active_date: WriteSi
         <div class=week::calendar>
             <button class={format!("{} {}", week::btn, week::btn_today)} on:click={move |_| set_active_date.set(chrono::Local::now().date_naive())}>{"Today"}</button>
             <div class=week::week>
-                <button class=week::btn on:click={move |_| set_active_date.update(|day| *day -= chrono::Duration::days(7))}>{"<"}</button>
+                <button class=week::btn on:click={move |_| set_active_date.update(|day| *day -= chrono::Duration::days((day.weekday().num_days_from_monday()+1).into()))}>{"<"}</button>
                 <For
                 each = {weekfn}
                 key = { |date: &chrono::NaiveDate| *date }
@@ -57,7 +57,7 @@ pub fn Week(active_date: ReadSignal<chrono::NaiveDate>, set_active_date: WriteSi
                     }
                 }}
                 />
-                <button class=week::btn on:click={move |_| set_active_date.update(|day| *day += chrono::Duration::days(7))}>{">"}</button>
+                <button class=week::btn on:click={move |_| set_active_date.update(|day| *day += chrono::Duration::days((7-day.weekday().num_days_from_monday()).into()))}>{">"}</button>
                 </div>
             </div>
         };

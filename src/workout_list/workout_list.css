@@ -1,0 +1,22 @@
+.action_box {
+    float: left;
+    background-color: aliceblue;
+    width: 70vw;
+    height: 30vh;
+    position: fixed;
+    top: 35%;
+    left: 15%;
+    z-index: 1000;
+    box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.action_buttons {
+    display: flex;
+    justify-content: space-around;
+    margin: 10px;
+
+}

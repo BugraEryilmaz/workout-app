@@ -29,9 +29,6 @@ pub struct Day {
 #[diesel(check_for_backend(diesel::sqlite::Sqlite))]
 pub struct Program {
     pub id: i32,
-    pub done: bool,
-    pub finish_date: Option<String>,
-    pub start_date: Option<String>,
     pub title: String,
     pub active: bool,
     pub image: Option<String>,

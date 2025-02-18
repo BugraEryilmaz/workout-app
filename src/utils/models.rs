@@ -20,13 +20,10 @@ pub struct Day {
     pub day_number: i32,
 }
 
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Clone)]
 pub struct Program {
     pub id: i32,
-    pub done: bool,
-    pub finish_date: Option<String>,
-    pub start_date: Option<String>,
     pub title: String,
-    pub active: bool,
+    pub active: RwSignal<bool>,
     pub image: Option<String>,
 }
