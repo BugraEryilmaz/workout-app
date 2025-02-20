@@ -9,16 +9,19 @@ leptos = { version = "0.7.7", features = ["csr"] }
 wasm-bindgen = "0.2"
 wasm-bindgen-futures = "0.4"
 js-sys = "0.3"
-serde = { version = "1", features = ["derive"] }
-serde_json = "1.0"
+serde = { version = "1.0.218", features = ["derive"] }
+serde_json = "1.0.139"
 serde-wasm-bindgen = "0.6"
 console_error_panic_hook = "0.1.7"
 regex = "1.5"
-reqwest = "0.12.12"
+reqwest = { version = "0.12.12", features = ["json"] }
 bytes = "1.0"
 stylance = { version = "0.5.4", features = ["nightly"] }
 chrono = { version = "0.4.39", features = ["serde"] }
 web-sys = "0.3.77"
+dotenvy = "0.15.7"
+dotenvy_macro = "0.15.7"
+iso8601-duration = "0.2.0"
 
 [workspace]
 members = ["src-tauri"]

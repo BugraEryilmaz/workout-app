@@ -2,6 +2,7 @@ mod app;
 mod utils;
 mod current_workout;
 mod workout_list;
+mod create_program;
 
 use app::*;
 use leptos::prelude::*;

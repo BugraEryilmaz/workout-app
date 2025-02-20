@@ -7,24 +7,7 @@ use leptos::prelude::*;
 
 use crate::utils::invoke::invoke;
 use crate::utils::models::Workout;
-
-fn get_thumbnail(link : &str) -> Result<String, String> {
-    let mut thumbnail = String::from("https://img.youtube.com/vi/");
-    let regex = regex::Regex::new(r"^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*").unwrap();
-    let videoid = regex.captures(link);
-    match videoid {
-        Some(videoid) => {
-            if videoid.get(7).is_none() || videoid.get(7).unwrap().as_str().len() != 11 {
-                return Err("Invalid youtube link".to_string());
-            }
-            let videoid = videoid.get(7).unwrap().as_str();
-            thumbnail.push_str(videoid);
-        },
-        None => return Err("Invalid youtube link".to_string())
-    }
-    thumbnail.push_str("/hqdefault.jpg");
-    Ok(thumbnail)
-}
+use crate::utils::video_metadata::get_thumbnail;
 
 #[derive(Serialize, Deserialize)]
 struct OpenArgs {
