@@ -26,7 +26,7 @@ pub fn CurrentWorkout() -> impl IntoView {
             let arg = serde_wasm_bindgen::to_value(&DateArgs {
                 date: day,
             }).expect("datetime should be serializable to JSvalue");
-            let workouts = invoke("get_workouts_of", arg).await;
+            let workouts = invoke("get_workouts_date", arg).await;
             let workouts: Vec<Workout> = serde_wasm_bindgen::from_value(workouts).unwrap();
             set_today_workouts.set(workouts);
         });

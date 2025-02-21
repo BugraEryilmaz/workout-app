@@ -9,8 +9,8 @@ pub fn App() -> impl IntoView {
     let (active_page, set_active_page) = signal("create-program".to_string());
     // let (active_page, set_active_page) = signal("current-workout".to_string());
     let program_to_update = Program {
-        id:0,
-        title:"".to_string(),
+        id: 1,
+        title:"new".to_string(),
         active: RwSignal::new(false), 
         image: None 
     };

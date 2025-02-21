@@ -17,7 +17,7 @@ pub struct Day {
     pub program_id: i32,
     pub done: bool,
     pub complete_date: Option<String>,
-    pub day_number: i32,
+    pub day_number: Option<i32>,
 }
 
 #[derive(Debug, Serialize, Deserialize, Clone)]

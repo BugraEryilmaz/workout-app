@@ -6,7 +6,7 @@ diesel::table! {
         program_id -> Integer,
         done -> Bool,
         complete_date -> Nullable<Date>,
-        day_number -> Integer,
+        day_number -> Nullable<Integer>,
     }
 }
 

@@ -15,21 +15,31 @@ CREATE TABLE IF NOT EXISTS days (
     program_id INTEGER NOT NULL,
     done BOOLEAN NOT NULL DEFAULT FALSE,
     complete_date DATE,
-    day_number INTEGER NOT NULL,
-    FOREIGN KEY (program_id) REFERENCES programs(id)
+    day_number INTEGER,
+    FOREIGN KEY (program_id) REFERENCES programs(id),
+    UNIQUE (program_id, day_number)
 );
 
-INSERT INTO days (id, day_number, program_id, done, complete_date) VALUES
-('5', '1', '1', TRUE, '2025-02-10'),
-('6', '2', '1', TRUE, '2025-02-11'),
-('7', '3', '1', TRUE, '2025-02-13'),
-('8', '4', '1', FALSE, NULL),
-('9', '5', '1', FALSE, NULL),
-('10', '6', '1', FALSE, NULL),
-('1', '1', '2', FALSE, NULL),
-('2', '2', '2', FALSE, NULL),
-('3', '3', '2', FALSE, NULL),
-('4', '4', '2', FALSE, NULL);
+CREATE TRIGGER auto_increment_trigger
+    AFTER INSERT ON days
+    WHEN new.day_number IS NULL
+    BEGIN
+        UPDATE days
+        SET day_number = (SELECT IFNULL(MAX(day_number), 0) + 1 FROM days WHERE program_id = new.program_id)
+        WHERE id = new.id;
+    END;
+
+INSERT INTO days (id, program_id, done, complete_date) VALUES
+('5', '1', TRUE, '2025-02-10'),
+('6', '1', TRUE, '2025-02-11'),
+('7', '1', TRUE, '2025-02-13'),
+('8', '1', FALSE, NULL),
+('9', '1', FALSE, NULL),
+('10', '1', FALSE, NULL),
+('1','2', FALSE, NULL),
+('2','2', FALSE, NULL),
+('3','2', FALSE, NULL),
+('4','2', FALSE, NULL);
 
 CREATE TABLE IF NOT EXISTS workouts (
     id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,

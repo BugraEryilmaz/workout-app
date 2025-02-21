@@ -21,7 +21,7 @@ fn establish_connection(app_handle: &tauri::AppHandle) -> SqliteConnection {
 }
 
 #[tauri::command]
-async fn get_workouts_of(date: chrono::NaiveDate , app_handle: tauri::AppHandle) -> Vec<Workout> {
+async fn get_workouts_date(date: chrono::NaiveDate , app_handle: tauri::AppHandle) -> Vec<Workout> {
     let conn = &mut establish_connection(&app_handle);
     let today = chrono::Local::now().date_naive();
     // Check if there is a workout finished at date for the active programs
@@ -46,10 +46,10 @@ async fn get_workouts_of(date: chrono::NaiveDate , app_handle: tauri::AppHandle)
             .order_by(days::dsl::day_number.desc())
             .limit(1)
             .select((days::program_id, days::day_number, days::complete_date))
-            .first::<(i32, i32, Option<String>)>(conn)
+            .first::<(i32, Option<i32>, Option<String>)>(conn)
             .optional()
             .expect("Error getting last done day")
-            .unwrap_or((-1, 0, Some((today - chrono::Duration::days(1)).to_string())));
+            .unwrap_or((-1, Some(0), Some((today - chrono::Duration::days(1)).to_string())));
         if program_id == -1 {
             program_id = programs::table
                 .filter(programs::dsl::active.eq(true))
@@ -67,7 +67,7 @@ async fn get_workouts_of(date: chrono::NaiveDate , app_handle: tauri::AppHandle)
         if diff <= 0 {
             return vec![];
         }
-        let day_number = last_done_day_number + diff as i32;
+        let day_number = last_done_day_number.unwrap() + diff as i32;
 
         let workouts = workouts::table
             .inner_join(days::table)
@@ -79,6 +79,18 @@ async fn get_workouts_of(date: chrono::NaiveDate , app_handle: tauri::AppHandle)
         return workouts;
     }
     return workouts;
+}
+
+#[tauri::command]
+async fn get_workouts_day(daynumber: i32, programid: i32, app: tauri::AppHandle) -> Vec<Workout> {
+    let conn = &mut establish_connection(&app);
+    let workouts = workouts::table
+        .inner_join(days::table)
+        .filter(days::dsl::program_id.eq(programid).and(days::dsl::day_number.eq(daynumber)))
+        .select(workouts::all_columns)
+        .load::<Workout>(conn)
+        .expect("Error loading workouts");
+    workouts
 }
 
 fn complete_day(day_id: i32, finish_date: NaiveDate, conn: &mut SqliteConnection) {
@@ -93,11 +105,11 @@ fn complete_day(day_id: i32, finish_date: NaiveDate, conn: &mut SqliteConnection
     // Check next day if it is rest day
     // Get current day's program_id and day_number
     let (current_day_program_id, current_day_number) = days::table
-        .filter(days::dsl::id.eq(day_id))
-        .select((days::dsl::program_id, days::dsl::day_number))
-        .first::<(i32,i32)>(conn).expect("Error getting current day");
+            .filter(days::dsl::id.eq(day_id))
+            .select((days::dsl::program_id, days::dsl::day_number.nullable()))
+            .first::<(i32, Option<i32>)>(conn).expect("Error getting current day");
     // Get next day
-    let next_day_number = current_day_number + 1;
+    let next_day_number = current_day_number.unwrap() + 1;
     let next_day_id = days::table
         .filter(days::dsl::program_id.eq(current_day_program_id).and(days::dsl::day_number.eq(next_day_number)))
         .select(days::dsl::id)
@@ -211,6 +223,45 @@ async fn last_workouts(app: tauri::AppHandle) -> Vec<String> {
     workouts
 }
 
+#[tauri::command]
+async fn create_workout(workout: Workout, app: tauri::AppHandle) -> Workout {
+    let conn = &mut establish_connection(&app);
+    // Get the day_id and create a new day if it does not exist
+    let new_workout = diesel::insert_into(workouts::table)
+        .values((
+            workouts::dsl::link.eq(workout.link),
+            workouts::dsl::title.eq(workout.title),
+            workouts::dsl::duration.eq(workout.duration),
+            workouts::dsl::day_id.eq(workout.day_id),
+        ))
+        .returning(workouts::all_columns)
+        .get_result(conn)
+        .expect("Error inserting new workout");
+    new_workout
+}
+
+#[tauri::command]
+async fn create_day(programid: i32, app: tauri::AppHandle) -> i32 {
+    let conn = &mut establish_connection(&app);
+    let day_id = diesel::insert_into(days::table)
+        .values(days::dsl::program_id.eq(programid))
+        .returning(days::dsl::id)
+        .get_result::<i32>(conn)
+        .expect("Error inserting new day");
+    day_id
+}
+
+#[tauri::command]
+async fn get_day_ids(programid: i32, app: tauri::AppHandle) -> Vec<i32> {
+    let conn = &mut establish_connection(&app);
+    let day_ids = days::table
+        .filter(days::dsl::program_id.eq(programid))
+        .select(days::dsl::id)
+        .load::<i32>(conn)
+        .expect("Error loading day ids");
+    day_ids
+}
+
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
     tauri::Builder::default()
@@ -242,9 +293,10 @@ pub fn run() {
         })
         .plugin(tauri_plugin_opener::init())
         .invoke_handler(tauri::generate_handler![
-            get_workouts_of, open, get_programs,
+            get_workouts_date, open, get_programs,
             activate_program, deactivate_program, clear_progress,
-            last_workouts
+            last_workouts, create_workout, create_day,
+            get_day_ids, get_workouts_day
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
