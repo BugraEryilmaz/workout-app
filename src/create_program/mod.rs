@@ -2,7 +2,7 @@ mod recents;
 mod calendar;
 mod create_workout;
 
-use leptos::leptos_dom::logging::{console_error, console_log};
+use leptos::leptos_dom::logging::console_error;
 use leptos::{html, prelude::*};
 use leptos::task::spawn_local;
 use serde::{Deserialize, Serialize};
@@ -10,7 +10,6 @@ use serde::{Deserialize, Serialize};
 use crate::utils::invoke::invoke;
 use crate::utils::models::{Program, Workout};
 use crate::utils::video_metadata::{get_metadata, VideoMetadata};
-use recents::*;
 use calendar::*;
 use create_workout::*;
 
@@ -37,7 +36,7 @@ pub fn CreateProgram(
     let active_date = RwSignal::new(0);
     let day_ids = RwSignal::new(vec![]);
     let workouts: RwSignal<Vec<Workout>> = RwSignal::new(vec![]);
-    let recents: RwSignal<Vec<Workout>> = RwSignal::new(vec![]);
+    let _recents: RwSignal<Vec<Workout>> = RwSignal::new(vec![]);
     let input_element: NodeRef<html::Input> = NodeRef::new();
     spawn_local(async move {
         let arg = GetDayIdsArgs { programid: program.id };

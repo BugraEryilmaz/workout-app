@@ -59,6 +59,7 @@ struct ApiResponse {
 
 #[derive(serde::Deserialize)]
 struct Items {
+    #[allow(non_snake_case)]
     contentDetails: ContentDetails,
     snippet: Snippet
 }

@@ -1,8 +1,6 @@
-use leptos::leptos_dom::logging::console_log;
 use leptos::prelude::*;
 use leptos::task::spawn_local;
 use serde_wasm_bindgen::to_value;
-use wasm_bindgen::JsValue;
 
 use crate::utils::models::Program;
 use crate::utils::invoke::invoke;

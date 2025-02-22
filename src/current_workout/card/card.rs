@@ -1,7 +1,6 @@
 use serde::{Deserialize, Serialize};
 use serde_wasm_bindgen::to_value;
 
-use wasm_bindgen::prelude::*;
 use leptos::task::spawn_local;
 use leptos::prelude::*;
 

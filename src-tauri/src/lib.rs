@@ -7,6 +7,7 @@ mod workout;
 
 use day::*;
 use program::*;
+use tauri_plugin_updater::UpdaterExt;
 use utils::establish_connection;
 use workout::*;
 

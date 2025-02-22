@@ -1,6 +1,5 @@
 mod program;
 
-use leptos::leptos_dom::logging::console_log;
 use program::*;
 use leptos::{html, prelude::*};
 use leptos::task::spawn_local;
