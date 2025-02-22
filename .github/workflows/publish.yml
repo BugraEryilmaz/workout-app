@@ -22,6 +22,7 @@ jobs:
             args: ''
 
     runs-on: ${{ matrix.platform }}
+    environment: .env
     steps:
       - uses: actions/checkout@v4
       - name: 'Create env file'
