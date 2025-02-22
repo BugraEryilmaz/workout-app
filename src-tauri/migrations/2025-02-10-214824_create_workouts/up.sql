@@ -16,7 +16,7 @@ CREATE TABLE IF NOT EXISTS days (
     done BOOLEAN NOT NULL DEFAULT FALSE,
     complete_date DATE,
     day_number INTEGER,
-    FOREIGN KEY (program_id) REFERENCES programs(id),
+    FOREIGN KEY (program_id) REFERENCES programs(id) ON DELETE CASCADE,
     UNIQUE (program_id, day_number)
 );
 
@@ -48,7 +48,7 @@ CREATE TABLE IF NOT EXISTS workouts (
     duration INT NOT NULL,
     done BOOLEAN NOT NULL DEFAULT FALSE,
     day_id INTEGER NOT NULL,
-    FOREIGN KEY (day_id) REFERENCES days(id)
+    FOREIGN KEY (day_id) REFERENCES days(id) ON DELETE CASCADE
 );
 
 INSERT INTO workouts (link, title, duration, day_id, done) VALUES

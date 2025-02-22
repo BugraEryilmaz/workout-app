@@ -63,11 +63,9 @@ async fn get_workouts_date(date: chrono::NaiveDate , app_handle: tauri::AppHandl
             }
         }
         let last_done_date = last_done_date.unwrap().parse::<NaiveDate>().unwrap();
-        let diff = date.signed_duration_since(last_done_date).num_days();
-        if diff <= 0 {
-            return vec![];
-        }
-        let day_number = last_done_day_number.unwrap() + diff as i32;
+        // day_number = last_done_day_number + (date-today) + (min(today, last_done_date + 1)-last_done_date)
+        // To adjust for skipped days, we have the min part
+        let day_number = last_done_day_number.unwrap() + (diff + (today - last_done_date).num_days().min(1)) as i32;
 
         let workouts = workouts::table
             .inner_join(days::table)
@@ -262,6 +260,34 @@ async fn get_day_ids(programid: i32, app: tauri::AppHandle) -> Vec<i32> {
     day_ids
 }
 
+#[tauri::command]
+async fn delete_workout(workoutid: i32, app: tauri::AppHandle) {
+    let conn = &mut establish_connection(&app);
+    diesel::delete(workouts::dsl::workouts.filter(workouts::dsl::id.eq(workoutid)))
+        .execute(conn)
+        .expect("Error deleting workout");
+}
+
+#[tauri::command]
+async fn create_program(title: String, app: tauri::AppHandle) -> Program {
+    let conn = &mut establish_connection(&app);
+    let new_program = diesel::insert_into(programs::table)
+        .values(programs::dsl::title.eq(title))
+        .returning(programs::all_columns)
+        .get_result(conn)
+        .expect("Error inserting new program");
+    
+    new_program
+}
+
+#[tauri::command]
+async fn delete_program(programid: i32, app: tauri::AppHandle) {
+    let conn = &mut establish_connection(&app);
+    diesel::delete(programs::dsl::programs.filter(programs::dsl::id.eq(programid)))
+        .execute(conn)
+        .expect("Error deleting program");
+}
+
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
     tauri::Builder::default()
@@ -296,7 +322,8 @@ pub fn run() {
             get_workouts_date, open, get_programs,
             activate_program, deactivate_program, clear_progress,
             last_workouts, create_workout, create_day,
-            get_day_ids, get_workouts_day
+            get_day_ids, get_workouts_day, delete_workout,
+            create_program, delete_program
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");

@@ -70,8 +70,7 @@ pub fn CreateProgram(
             <div
                 style="width: 70%; position: relative; top: -60vh;"
             >
-                <WorkoutCard workouts=workouts 
-            />
+                <WorkoutCard workouts=workouts />
             </div>
             <form
                 style="position: fixed; bottom: 5em; width: 70%; flex-direction: row; display: flex; align-items: center;"

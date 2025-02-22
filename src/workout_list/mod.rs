@@ -1,7 +1,8 @@
 mod program;
 
+use leptos::leptos_dom::logging::console_log;
 use program::*;
-use leptos::prelude::*;
+use leptos::{html, prelude::*};
 use leptos::task::spawn_local;
 use serde_wasm_bindgen::to_value;
 use wasm_bindgen::JsValue;
@@ -10,8 +11,15 @@ use crate::utils::invoke::invoke;
 
 stylance::import_style!(#[allow(dead_code)] workout_list_style, "workout_list.css");
 
+#[derive(serde::Serialize)]
+struct CreateProgramArgs {
+    title: String
+}
+
 #[component]
-pub fn WorkoutList() -> impl IntoView {
+pub fn WorkoutList(
+    program_to_update: RwSignal<Option<Program>>
+) -> impl IntoView {
     let (programs, set_programs) = signal(Vec::<Program>::new());
     let action: RwSignal<Option<Program>> = RwSignal::new(None);
 
@@ -21,6 +29,8 @@ pub fn WorkoutList() -> impl IntoView {
         set_programs.set(progs);
     });
 
+    let input_element: NodeRef<html::Input> = NodeRef::new();
+
     return view! {
         <div>
             <For
@@ -28,7 +38,42 @@ pub fn WorkoutList() -> impl IntoView {
                 key = { |program| program.id }
                 children = { move |program| {
                     view! {
-                        <ProgramCard program=program set_action=action/>
+                        <div>
+                            <ProgramCard program=program.clone() set_action=action programs=set_programs
+                                on:click={move |e: web_sys::MouseEvent| {
+                                    if let Some(target) = e.target() {
+                                        if let Some(current_target) = e.current_target() {
+                                            if current_target.eq(&target){
+                                                program_to_update.set(Some(program.clone()));
+                                            }
+                                        }
+                                    }
+                                }}
+                            />
+                            <form
+                                style="position: fixed; bottom: 5em; width: 90%; flex-direction: row; display: flex; align-items: center;"
+                                on:submit={move |e| {
+                                    e.prevent_default();
+                                    let title = input_element.get().expect("The input needs to be loaded").value();
+                                    input_element.get().expect("The input needs to be loaded").set_value("");
+                                    spawn_local(async move {
+                                        let arg = CreateProgramArgs { title };
+                                        let program = invoke("create_program", to_value(&arg).unwrap()).await;
+                                        let program: Program = serde_wasm_bindgen::from_value(program).unwrap();
+                                        set_programs.update(|progs| {
+                                            progs.push(program)
+                                        });
+                                    });
+                                }
+                            }>
+                                <input type="text" placeholder="Title" style="margin: 1em; margin-left: 5em; flex-grow: 1;" node_ref=input_element/>
+                                <button
+                                    style="border-radius: 1em; height: 100%; margin: 1em;"
+                                >
+                                    {"Add Program"}
+                                </button>
+                            </form>
+                        </div>
                     }
                 }}
             />
