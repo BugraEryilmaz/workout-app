@@ -2,13 +2,14 @@ use chrono::NaiveDate;
 use diesel::prelude::*;
 
 use crate::models::*;
-use crate::schema::*; 
+use crate::schema::*;
 use crate::utils::establish_connection;
 
-
-
 #[tauri::command]
-pub async fn get_workouts_date(date: chrono::NaiveDate, app_handle: tauri::AppHandle) -> Vec<Workout> {
+pub async fn get_workouts_date(
+    date: chrono::NaiveDate,
+    app_handle: tauri::AppHandle,
+) -> Vec<Workout> {
     let conn = &mut establish_connection(&app_handle);
     let today = chrono::Local::now().date_naive();
     // Check if there is a workout finished at date for the active programs
@@ -80,7 +81,11 @@ pub async fn get_workouts_date(date: chrono::NaiveDate, app_handle: tauri::AppHa
 }
 
 #[tauri::command]
-pub async fn get_workouts_day(daynumber: i32, programid: i32, app: tauri::AppHandle) -> Vec<Workout> {
+pub async fn get_workouts_day(
+    daynumber: i32,
+    programid: i32,
+    app: tauri::AppHandle,
+) -> Vec<Workout> {
     let conn = &mut establish_connection(&app);
     let workouts = workouts::table
         .inner_join(days::table)

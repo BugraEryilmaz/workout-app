@@ -4,7 +4,6 @@ use crate::models::Workout;
 use crate::schema::*;
 use crate::utils::establish_connection;
 
-
 #[tauri::command]
 pub async fn delete_workout(workoutid: i32, app: tauri::AppHandle) {
     let conn = &mut establish_connection(&app);

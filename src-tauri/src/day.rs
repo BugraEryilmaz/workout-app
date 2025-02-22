@@ -1,8 +1,7 @@
 use diesel::prelude::*;
 
-use crate::schema::*; 
+use crate::schema::*;
 use crate::utils::establish_connection;
-
 
 #[tauri::command]
 pub async fn create_day(programid: i32, app: tauri::AppHandle) -> i32 {

@@ -33,8 +33,4 @@ diesel::table! {
 diesel::joinable!(days -> programs (program_id));
 diesel::joinable!(workouts -> days (day_id));
 
-diesel::allow_tables_to_appear_in_same_query!(
-    days,
-    programs,
-    workouts,
-);
+diesel::allow_tables_to_appear_in_same_query!(days, programs, workouts,);

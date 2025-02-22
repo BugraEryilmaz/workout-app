@@ -1,6 +1,6 @@
 use crate::models::Program;
-use crate::utils::establish_connection;
 use crate::schema::*;
+use crate::utils::establish_connection;
 
 use diesel::prelude::*;
 

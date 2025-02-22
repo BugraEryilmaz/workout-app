@@ -1,14 +1,14 @@
+mod day;
 pub mod models;
+mod program;
 pub mod schema;
 pub mod utils;
-mod program;
 mod workout;
-mod day;
 
-use program::*;
-use workout::*;
 use day::*;
+use program::*;
 use utils::establish_connection;
+use workout::*;
 
 use tauri::Manager;
 
@@ -21,6 +21,7 @@ pub const MIGRATIONS: EmbeddedMigrations = embed_migrations!("../migrations/");
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
     tauri::Builder::default()
+        .plugin(tauri_plugin_updater::Builder::new().build())
         .plugin(tauri_plugin_dialog::init())
         .plugin(tauri_plugin_shell::init())
         .setup(|app| {

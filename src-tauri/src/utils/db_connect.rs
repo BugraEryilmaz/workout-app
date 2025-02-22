@@ -1,8 +1,6 @@
 use diesel::{Connection, SqliteConnection};
 use tauri::Manager;
 
-
-
 pub fn establish_connection(app_handle: &tauri::AppHandle) -> SqliteConnection {
     let path = app_handle
         .path()

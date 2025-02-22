@@ -5,7 +5,6 @@ use crate::models::Workout;
 use crate::schema::*;
 use crate::utils::{complete_day, establish_connection};
 
-
 #[tauri::command]
 pub async fn open(workout: Workout, app_handle: tauri::AppHandle) {
     let url = workout.link.as_str();

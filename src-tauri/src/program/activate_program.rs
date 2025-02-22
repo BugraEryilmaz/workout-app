@@ -1,9 +1,8 @@
 use crate::models::Program;
-use crate::utils::establish_connection;
 use crate::schema::*;
+use crate::utils::establish_connection;
 
 use diesel::prelude::*;
-
 
 #[tauri::command]
 pub async fn activate_program(program: Program, app: tauri::AppHandle) {

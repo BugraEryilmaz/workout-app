@@ -1,11 +1,10 @@
-use serde::{Deserialize, Serialize};
 use diesel::prelude::*;
+use serde::{Deserialize, Serialize};
 use tauri_plugin_dialog::DialogExt;
 
 use crate::models::*;
 use crate::schema::*;
 use crate::utils::establish_connection;
-
 
 #[derive(Serialize, Deserialize)]
 struct ProgramWithWorkouts {
@@ -30,24 +29,16 @@ pub async fn share_program(programid: i32, app: tauri::AppHandle) {
     let json = serde_json::to_string(&ProgramWithWorkouts { program, days })
         .expect("Error serializing program");
     // Save this json to a file
-    let path = app
-        .dialog()
-        .file()
-        .blocking_save_file();
+    let path = app.dialog().file().blocking_save_file();
     if let Some(path) = path {
         let path = path.as_path().unwrap();
-        std::fs::write
-            (path, json)
-            .expect("Error writing to file");
+        std::fs::write(path, json).expect("Error writing to file");
     }
 }
 
 #[tauri::command]
 pub async fn restore_program(app: tauri::AppHandle) -> Option<Program> {
-    let path = app
-        .dialog()
-        .file()
-        .blocking_pick_file();
+    let path = app.dialog().file().blocking_pick_file();
     if let Some(path) = path {
         let path = path.as_path().unwrap();
         let json = std::fs::read_to_string(path).expect("Error reading file");
@@ -61,7 +52,13 @@ pub async fn restore_program(app: tauri::AppHandle) -> Option<Program> {
             .expect("Error inserting new program");
         // keep a hashmap of days to insert days only once to the program
         let mut days_map = std::collections::HashMap::new();
-        let last_day_number = program_with_workouts.days.get(program_with_workouts.days.len()-1).unwrap().0.day_number.unwrap();
+        let last_day_number = program_with_workouts
+            .days
+            .get(program_with_workouts.days.len() - 1)
+            .unwrap()
+            .0
+            .day_number
+            .unwrap();
         for day_number in 1..=last_day_number {
             let day_id = diesel::insert_into(days::table)
                 .values((
@@ -76,8 +73,7 @@ pub async fn restore_program(app: tauri::AppHandle) -> Option<Program> {
             days_map.insert(day_number, day_id);
         }
         for (day, workout) in program_with_workouts.days {
-            let day_id = days_map
-                .entry(day.day_number.unwrap()).or_default();
+            let day_id = days_map.entry(day.day_number.unwrap()).or_default();
             diesel::insert_into(workouts::table)
                 .values((
                     workouts::dsl::link.eq(workout.link),

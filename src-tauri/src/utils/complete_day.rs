@@ -1,10 +1,9 @@
 use chrono::NaiveDate;
-use diesel::SqliteConnection;
 use diesel::prelude::*;
+use diesel::SqliteConnection;
 
 use crate::models::Workout;
 use crate::schema::*;
-
 
 pub fn complete_day(day_id: i32, finish_date: NaiveDate, conn: &mut SqliteConnection) {
     diesel::update(days::dsl::days)
