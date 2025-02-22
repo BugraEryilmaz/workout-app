@@ -27,40 +27,42 @@ jobs:
       - name: 'Create env file'
         if: matrix.platform == 'windows-latest'
         shell: "cmd"
-        run: echo YOUTUBE_API_KEY=${{ secrets.YOUTUBE_API_KEY }} > .env
+        run: |
+          echo YOUTUBE_API_KEY=${{ secrets.YOUTUBE_API_KEY }} > .env
+          cat .env
 
       - name: 'Create env file'
         if: matrix.platform == 'macos-latest'
         shell: "bash"
         run: echo YOUTUBE_API_KEY=${{ secrets.YOUTUBE_API_KEY }} > .env
 
-      - name: install Rust nightly
-        uses: dtolnay/rust-toolchain@nightly
-        with:
-          # Those targets are only used on macos runners so it's in an `if` to slightly speed up windows and linux builds.
-          targets: ${{ matrix.platform == 'macos-latest' && 'aarch64-apple-darwin,x86_64-apple-darwin' || '' }}
+      # - name: install Rust nightly
+      #   uses: dtolnay/rust-toolchain@nightly
+      #   with:
+      #     # Those targets are only used on macos runners so it's in an `if` to slightly speed up windows and linux builds.
+      #     targets: ${{ matrix.platform == 'macos-latest' && 'aarch64-apple-darwin,x86_64-apple-darwin' || '' }}
 
-      - name: Add wasm32-unknown-unknown
-        run: rustup target add wasm32-unknown-unknown
+      # - name: Add wasm32-unknown-unknown
+      #   run: rustup target add wasm32-unknown-unknown
         
-      - name: Install Trunk
-        uses: jetli/trunk-action@v0.5.0
-        with:
-          version: "latest"
+      # - name: Install Trunk
+      #   uses: jetli/trunk-action@v0.5.0
+      #   with:
+      #     version: "latest"
 
-      - name: Install stylance
-        run: cargo install stylance-cli
+      # - name: Install stylance
+      #   run: cargo install stylance-cli
 
-      - uses: tauri-apps/tauri-action@v0
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
-          TAURI_SIGNING_PRIVATE_KEY_PASSWORD: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY_PASSWORD }}
-        with:
-          tagName: app-v__VERSION__ # the action automatically replaces \_\_VERSION\_\_ with the app version.
-          releaseName: 'App v__VERSION__'
-          releaseBody: 'See the assets to download this version and install.'
-          releaseDraft: true
-          prerelease: false
-          includeUpdaterJson: true
-          args: ${{ matrix.args }}
+      # - uses: tauri-apps/tauri-action@v0
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #     TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
+      #     TAURI_SIGNING_PRIVATE_KEY_PASSWORD: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY_PASSWORD }}
+      #   with:
+      #     tagName: app-v__VERSION__ # the action automatically replaces \_\_VERSION\_\_ with the app version.
+      #     releaseName: 'App v__VERSION__'
+      #     releaseBody: 'See the assets to download this version and install.'
+      #     releaseDraft: true
+      #     prerelease: false
+      #     includeUpdaterJson: true
+      #     args: ${{ matrix.args }}
