@@ -27,12 +27,12 @@ jobs:
       - name: 'Create env file'
         if: matrix.platform == 'windows-latest'
         shell: "cmd"
-        run: echo ${{ secrets.ENV_FILE }} > .env
+        run: echo YOUTUBE_API_KEY=${{ secrets.YOUTUBE_API_KEY }} > .env
 
       - name: 'Create env file'
         if: matrix.platform == 'macos-latest'
         shell: "bash"
-        run: echo ${{ secrets.ENV_FILE }} > .env
+        run: echo YOUTUBE_API_KEY=${{ secrets.YOUTUBE_API_KEY }} > .env
 
       - name: install Rust nightly
         uses: dtolnay/rust-toolchain@nightly
