@@ -59,8 +59,8 @@ struct ApiResponse {
 
 #[derive(serde::Deserialize)]
 struct Items {
-    #[allow(non_snake_case)]
-    contentDetails: ContentDetails,
+    #[serde(rename = "contentDetails")]
+    content_details: ContentDetails,
     snippet: Snippet
 }
 
@@ -88,7 +88,7 @@ pub async fn get_metadata(link : &str) -> Result<VideoMetadata, String> {
     let response = reqwest::get(url).await.map_err(|e| e.to_string())?;
     console_log(format!("response: {:?}", response).as_str());
     let json: ApiResponse = response.json().await.map_err(|e| e.to_string())?;
-    let duration = json.items[0].contentDetails.duration.as_str();
+    let duration = json.items[0].content_details.duration.as_str();
     let duration = Duration::parse(duration).map_err(|e| format!("{:?}", e))?;
     let metadata = VideoMetadata {
         title: json.items[0].snippet.title.clone(),
