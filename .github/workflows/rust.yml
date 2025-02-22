@@ -1,0 +1,27 @@
+name: Rust
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  windows:
+
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: install tauri
+      run: | 
+          cargo install tauri-cli
+          cargo install stylance-cli
+          rustup target add wasm32-unknown-unknown
+          cargo install trunk
+    - name: Build
+      run: cargo tauri build --verbose
