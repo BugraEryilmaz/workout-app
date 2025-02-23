@@ -44,9 +44,7 @@ jobs:
         run: rustup target add wasm32-unknown-unknown
         
       - name: Install Trunk
-        uses: jetli/trunk-action@v0.5.0
-        with:
-          version: "latest"
+        run: cargo install trunk
 
       - name: Install stylance
         run: cargo install stylance-cli
