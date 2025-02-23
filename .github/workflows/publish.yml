@@ -26,18 +26,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: 'Create env file'
-        if: matrix.platform == 'windows-latest'
-        shell: "cmd"
         run: echo YOUTUBE_API_KEY=${{ secrets.YOUTUBE_API_KEY }} > .env
-
-      - name: 'Create env file'
-        if: matrix.platform == 'macos-latest'
-        shell: "bash"
-        run: echo YOUTUBE_API_KEY=${{ secrets.YOUTUBE_API_KEY }} > .env
-
-      - name: fix path macOS
-        if: matrix.platform == 'macos-latest'
-        run: export PATH="/usr/local/bin:~/.cargo/bin:/usr/bin:$PATH"
         
       - name: install Rust nightly
         run: |
