@@ -36,10 +36,18 @@ jobs:
         run: echo YOUTUBE_API_KEY=${{ secrets.YOUTUBE_API_KEY }} > .env
 
       - name: install Rust nightly
-        run: rustup toolchain install nightly
+        if: matrix.platform == 'windows-latest'
+        run: |
+          rustup toolchain install nightly
+          rustup default nightly
+          
+      - name: install Rust nightly
+        if: matrix.platform == 'macos-latest'
+        uses: dtolnay/rust-toolchain@nightly
+        with:
+          # Those targets are only used on macos runners so it's in an `if` to slightly speed up windows and linux builds.
+          targets: ${{ matrix.platform == 'macos-latest' && 'aarch64-apple-darwin,x86_64-apple-darwin' || '' }}
 
-      - name: default Rust nightly
-        run: rustup default nightly
 
       - name: Add wasm32-unknown-unknown
         run: rustup target add wasm32-unknown-unknown
