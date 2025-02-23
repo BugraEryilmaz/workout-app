@@ -88,7 +88,7 @@ pub fn WorkoutList(
                             }
                         });
                     }}
-                    style="cursor: pointer; margin: 0.5em;"
+                    style="cursor: pointer; margin: 0.5em; background-color: #f5f5f5; "
                 >"settings_backup_restore"</i>
             </form>
 
