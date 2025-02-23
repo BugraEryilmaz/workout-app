@@ -36,9 +36,10 @@ jobs:
         run: echo YOUTUBE_API_KEY=${{ secrets.YOUTUBE_API_KEY }} > .env
 
       - name: install Rust nightly
-        run: |
-          rustup toolchain install nightly
-          rustup default nightly
+        run: rustup toolchain install nightly
+
+      - name: default Rust nightly
+        run: rustup default nightly
 
       - name: Add wasm32-unknown-unknown
         run: rustup target add wasm32-unknown-unknown
