@@ -50,33 +50,49 @@ pub fn WorkoutList(
                                     }
                                 }}
                             />
-                            <form
-                                style="position: fixed; bottom: 5em; width: 90%; flex-direction: row; display: flex; align-items: center;"
-                                on:submit={move |e| {
-                                    e.prevent_default();
-                                    let title = input_element.get().expect("The input needs to be loaded").value();
-                                    input_element.get().expect("The input needs to be loaded").set_value("");
-                                    spawn_local(async move {
-                                        let arg = CreateProgramArgs { title };
-                                        let program = invoke("create_program", to_value(&arg).unwrap()).await;
-                                        let program: Program = serde_wasm_bindgen::from_value(program).unwrap();
-                                        set_programs.update(|progs| {
-                                            progs.push(program)
-                                        });
-                                    });
-                                }
-                            }>
-                                <input type="text" placeholder="Title" style="margin: 1em; margin-left: 5em; flex-grow: 1;" node_ref=input_element/>
-                                <button
-                                    style="border-radius: 1em; height: 100%; margin: 1em;"
-                                >
-                                    {"Add Program"}
-                                </button>
-                            </form>
                         </div>
                     }
                 }}
             />
+            <form
+                style="position: fixed; bottom: 5em; width: 90%; flex-direction: row; display: flex; align-items: center;"
+                on:submit={move |e| {
+                    e.prevent_default();
+                    let title = input_element.get().expect("The input needs to be loaded").value();
+                    input_element.get().expect("The input needs to be loaded").set_value("");
+                    spawn_local(async move {
+                        let arg = CreateProgramArgs { title };
+                        let program = invoke("create_program", to_value(&arg).unwrap()).await;
+                        let program: Program = serde_wasm_bindgen::from_value(program).unwrap();
+                        set_programs.update(|progs| {
+                            progs.push(program)
+                        });
+                    });
+                }
+            }>
+                <input type="text" placeholder="Title" style="margin: 1em; margin-left: 5em; flex-grow: 1;" node_ref=input_element/>
+                <button
+                    style="border-radius: 1em; height: 100%; margin: 1em;"
+                >
+                    {"Add Program"}
+                </button>
+                <i class="material-icons"
+                    on:click={
+                        move |_| {
+                        spawn_local(async move {
+                            let res = invoke("restore_program", JsValue::null()).await;
+                            let res: Option<Program> = serde_wasm_bindgen::from_value(res).unwrap();
+                            if let Some(program) = res {
+                                set_programs.update(|progs| {
+                                    progs.push(program)
+                                });
+                            }
+                        });
+                    }}
+                    style="cursor: pointer; margin: 0.5em;"
+                >"settings_backup_restore"</i>
+            </form>
+
             <div
                 class=workout_list_style::action_box
                 style:display=move || if action.get().is_some() { "initial" } else { "none" }

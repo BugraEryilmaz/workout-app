@@ -71,8 +71,20 @@ pub fn ProgramCard(
                     }></span>
                 </label>
                 <i class="material-icons"
-                    on:click={move |_| {
+                    on:click={
                         let program_clone = program.clone();
+                        move |_| {
+                        spawn_local(async move {
+                            let arg = DeleteProgramArgs { programid: program_clone.id };
+                            invoke("share_program", serde_wasm_bindgen::to_value(&arg).unwrap()).await;
+                        });
+                    }}
+                    style="cursor: pointer; margin: 0.5em;"
+                >"ios_share"</i>
+                <i class="material-icons"
+                    on:click={
+                        let program_clone = program.clone();
+                        move |_| {
                         spawn_local(async move {
                             let arg = DeleteProgramArgs { programid: program_clone.id };
                             invoke("delete_program", serde_wasm_bindgen::to_value(&arg).unwrap()).await;

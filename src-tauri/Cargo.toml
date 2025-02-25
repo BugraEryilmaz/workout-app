@@ -27,3 +27,4 @@ diesel = { version = "2.2.7", features = ["sqlite", "returning_clauses_for_sqlit
 rusqlite = { version = "0.33.0", features = ["bundled"] }
 tauri-plugin-shell = "2"
 chrono = { version = "0.4.39", features = ["serde"] }
+tauri-plugin-dialog = "2"

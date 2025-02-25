@@ -33,4 +33,3 @@ pub struct Program {
     pub active: bool,
     pub image: Option<String>,
 }
-
