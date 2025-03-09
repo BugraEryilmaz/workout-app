@@ -23,13 +23,6 @@ pub fn App() -> impl IntoView {
         }
     });
 
-    program_to_update.set(Some(Program {
-        id: 29,
-        title: "new c".to_string(),
-        active: RwSignal::new(true),
-        image: None,
-    }));
-
     view! {
         <main class="container">
             <Show
