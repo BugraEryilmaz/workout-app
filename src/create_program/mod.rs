@@ -2,7 +2,7 @@ mod calendar;
 mod create_workout;
 mod recents;
 
-use leptos::leptos_dom::logging::{console_error, console_log};
+use leptos::leptos_dom::logging::console_error;
 use leptos::task::spawn_local;
 use leptos::{html, prelude::*};
 use serde::{Deserialize, Serialize};

@@ -17,7 +17,7 @@ use tauri::Manager;
 
 use diesel_migrations::{embed_migrations, EmbeddedMigrations, MigrationHarness};
 
-pub const MIGRATIONS: EmbeddedMigrations = embed_migrations!("../migrations/");
+pub const MIGRATIONS: EmbeddedMigrations = embed_migrations!("migrations");
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {

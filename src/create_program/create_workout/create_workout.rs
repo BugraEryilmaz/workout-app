@@ -1,6 +1,5 @@
 use leptos::{html, leptos_dom::logging::console_log, prelude::*, task::spawn_local};
 use serde::{Deserialize, Serialize};
-use web_sys::console;
 
 use crate::utils::{invoke::invoke, models::Workout, video_metadata::get_thumbnail};
 

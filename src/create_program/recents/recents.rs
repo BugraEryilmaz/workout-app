@@ -2,7 +2,7 @@ use leptos::leptos_dom::logging::console_log;
 use leptos::prelude::*;
 use leptos::task::spawn_local;
 
-use crate::create_program::recents::card::RecentsCard;
+use crate::create_program::recents::RecentsCard;
 use crate::create_program::InsertWorkoutArgs;
 use crate::utils::invoke::invoke;
 use crate::utils::models::Workout;

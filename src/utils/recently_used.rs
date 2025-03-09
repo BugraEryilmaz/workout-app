@@ -14,18 +14,6 @@ impl<K: std::hash::Hash + Eq + Clone, V> LruCache<K, V> {
         }
     }
 
-    pub fn get_without_update(&self, key: &K) -> Option<&V> {
-        self.map.get(key)
-    }
-
-    pub fn get(&mut self, key: &K) -> Option<&V> {
-        // Move accessed item to the most recently used position
-        if let Some(value) = self.map.remove(key) {
-            self.map.insert(key.clone(), value);
-        }
-        self.map.get(key)
-    }
-
     pub fn put(&mut self, key: K, value: V) {
         if self.map.contains_key(&key) {
             self.map.remove(&key); // Remove existing key to update position
