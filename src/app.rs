@@ -1,8 +1,15 @@
 use leptos::prelude::*;
 
-use crate::{create_program::CreateProgram, current_workout::CurrentWorkout, utils::models::Program, workout_list::WorkoutList};
+use crate::{
+    create_program::CreateProgram, current_workout::CurrentWorkout, utils::models::Program,
+    workout_list::WorkoutList,
+};
 
-
+stylance::import_style!(
+    #[allow(dead_code)]
+    app_style,
+    "app.css"
+);
 
 #[component]
 pub fn App() -> impl IntoView {
@@ -15,6 +22,13 @@ pub fn App() -> impl IntoView {
             set_active_page.set("update-program");
         }
     });
+
+    program_to_update.set(Some(Program {
+        id: 29,
+        title: "new c".to_string(),
+        active: RwSignal::new(true),
+        image: None,
+    }));
 
     view! {
         <main class="container">
@@ -36,17 +50,27 @@ pub fn App() -> impl IntoView {
                 <CreateProgram program=program_to_update.get().unwrap().clone()/>
             </Show>
             <div
-                style="position: fixed; bottom: 1em; width: 100%; display: flex; justify-content: space-evenly;"
+                class=app_style::nav_bar
             >
                 <button on:click={move |_| {
                     set_active_page.set("current-workout");
                     }}
-                    style:border=move || {if active_page.get() == "current-workout" { "2px solid black" } else { "none" }}
+                    class=move || {
+                        stylance::classes!(
+                            app_style::nav_button,
+                            if active_page.get() == "current-workout" {Some(app_style::nav_button_active)} else { None }
+                        )
+                    }
                 >Current Workout</button>
                 <button on:click={move |_| {
                     set_active_page.set("workout-list");
                     }}
-                    style:border=move || {if active_page.get() == "workout-list" { "2px solid black" } else { "none" }}
+                    class=move || {
+                        stylance::classes!(
+                            app_style::nav_button,
+                            if active_page.get() == "workout-list" {Some(app_style::nav_button_active)} else { None }
+                        )
+                    }
                 >Workout List</button>
             </div>
         </main>

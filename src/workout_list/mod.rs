@@ -1,24 +1,26 @@
 mod program;
 
-use program::*;
-use leptos::{html, prelude::*};
+use crate::utils::invoke::invoke;
+use crate::utils::models::Program;
 use leptos::task::spawn_local;
+use leptos::{html, prelude::*};
+use program::*;
 use serde_wasm_bindgen::to_value;
 use wasm_bindgen::JsValue;
-use crate::utils::models::Program;
-use crate::utils::invoke::invoke;
 
-stylance::import_style!(#[allow(dead_code)] workout_list_style, "workout_list.css");
+stylance::import_style!(
+    #[allow(dead_code)]
+    workout_list_style,
+    "workout_list.css"
+);
 
 #[derive(serde::Serialize)]
 struct CreateProgramArgs {
-    title: String
+    title: String,
 }
 
 #[component]
-pub fn WorkoutList(
-    program_to_update: RwSignal<Option<Program>>
-) -> impl IntoView {
+pub fn WorkoutList(program_to_update: RwSignal<Option<Program>>) -> impl IntoView {
     let (programs, set_programs) = signal(Vec::<Program>::new());
     let action: RwSignal<Option<Program>> = RwSignal::new(None);
 
@@ -32,32 +34,37 @@ pub fn WorkoutList(
 
     return view! {
         <div>
-            <For
-                each = { move || programs.get() }
-                key = { |program| program.id }
-                children = { move |program| {
-                    view! {
-                        <div>
-                            <ProgramCard program=program.clone() set_action=action programs=set_programs
-                                on:click={move |e: web_sys::MouseEvent| {
-                                    if let Some(target) = e.target() {
-                                        if let Some(current_target) = e.current_target() {
-                                            if current_target.eq(&target){
-                                                program_to_update.set(Some(program.clone()));
+            <div class=workout_list_style::program_list>
+                <For
+                    each = { move || programs.get() }
+                    key = { |program| program.id }
+                    children = { move |program| {
+                        view! {
+                            <div>
+                                <ProgramCard program=program.clone() set_action=action programs=set_programs
+                                    on:click={move |e: web_sys::MouseEvent| {
+                                        if let Some(target) = e.target() {
+                                            if let Some(current_target) = e.current_target() {
+                                                if current_target.eq(&target){
+                                                    program_to_update.set(Some(program.clone()));
+                                                }
                                             }
                                         }
-                                    }
-                                }}
-                            />
-                        </div>
-                    }
-                }}
-            />
+                                    }}
+                                />
+                            </div>
+                        }
+                    }}
+                />
+            </div>
             <form
-                style="position: fixed; bottom: 5em; width: 90%; flex-direction: row; display: flex; align-items: center;"
+                class=workout_list_style::add_program_form
                 on:submit={move |e| {
                     e.prevent_default();
                     let title = input_element.get().expect("The input needs to be loaded").value();
+                    if title.is_empty() {
+                        return;
+                    }
                     input_element.get().expect("The input needs to be loaded").set_value("");
                     spawn_local(async move {
                         let arg = CreateProgramArgs { title };
@@ -69,13 +76,11 @@ pub fn WorkoutList(
                     });
                 }
             }>
-                <input type="text" placeholder="Title" style="margin: 1em; margin-left: 5em; flex-grow: 1;" node_ref=input_element/>
-                <button
-                    style="border-radius: 1em; height: 100%; margin: 1em;"
-                >
+                <input type="text" placeholder="Title" class=workout_list_style::add_program_textbox node_ref=input_element/>
+                <button class=workout_list_style::add_program_button>
                     {"Add Program"}
                 </button>
-                <i class="material-icons"
+                <i class=stylance::classes!("material-symbols-outlined", workout_list_style::add_program_restore_button)
                     on:click={
                         move |_| {
                         spawn_local(async move {
@@ -88,8 +93,7 @@ pub fn WorkoutList(
                             }
                         });
                     }}
-                    style="cursor: pointer; margin: 0.5em; background-color: #f5f5f5; "
-                >"settings_backup_restore"</i>
+                    >"settings_backup_restore"</i>
             </form>
 
             <div
@@ -145,5 +149,5 @@ pub fn WorkoutList(
                 </div>
             </div>
         </div>
-    }
+    };
 }

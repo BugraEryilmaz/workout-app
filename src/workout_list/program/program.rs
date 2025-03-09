@@ -1,37 +1,77 @@
-use leptos::prelude::*;
+use leptos::leptos_dom::logging::console_log;
 use leptos::task::spawn_local;
+use leptos::{html, prelude::*};
 use serde_wasm_bindgen::to_value;
 
-use crate::utils::models::Program;
 use crate::utils::invoke::invoke;
+use crate::utils::models::Program;
 
 stylance::import_style!(#[allow(dead_code)] pub program_style, "program.css");
 
 #[derive(serde::Serialize)]
 pub struct ProgramAction {
-    pub program: Program
+    pub program: Program,
 }
 
 #[derive(serde::Serialize)]
 struct DeleteProgramArgs {
-    programid: i32
+    programid: i32,
+}
+
+#[derive(serde::Serialize)]
+struct UpdateProgramArgs {
+    id: i32,
+    title: String,
 }
 
 #[component]
 pub fn ProgramCard(
     program: Program,
     set_action: RwSignal<Option<Program>>,
-    programs: WriteSignal<Vec<Program>>
+    programs: WriteSignal<Vec<Program>>,
 ) -> impl IntoView {
+    let title_input: NodeRef<html::Input> = NodeRef::new();
+    let form_ref: NodeRef<html::Form> = NodeRef::new();
     return view! {
         <div
-            class={
-                stylance::classes!(
+            class=stylance::classes!(
                     program_style::program
-                )
-            }
-        >
-            <h1>{ program.title.clone() }</h1>
+        )>
+            <form
+                on:submit={
+                    let program_clone = program.clone();
+                    move |event| {
+                    event.prevent_default();
+                    console_log(&format!("Submitting form: {:?}", program_clone));
+                    let title = title_input.get().unwrap().value();
+                    let arg = UpdateProgramArgs { id: program_clone.id, title: title };
+                    spawn_local(async move {
+                        let program = invoke("update_program", to_value(&arg).unwrap()).await;
+                        let program: Program = serde_wasm_bindgen::from_value(program).unwrap();
+                        programs.update(|programs| {
+                            programs.iter_mut().find(|p| p.id == program_clone.id).map(|p| {
+                                *p = program.clone();
+                            });
+                        });
+                    });
+                }}
+                node_ref=form_ref
+                on:focusout=move |e| {
+                    // submit form on focus out
+                    e.prevent_default();
+                    let _ = form_ref.get().unwrap().request_submit();
+                }
+            >
+                <input
+                    class={
+                        stylance::classes!(
+                            program_style::program_title
+                        )
+                    }
+                    prop:value=program.title.clone()
+                    node_ref=title_input
+                />
+            </form>
             <div
                 class={
                     stylance::classes!(
@@ -40,7 +80,7 @@ pub fn ProgramCard(
                 }
             >
                 <label class=program_style::switch>
-                    <input type="checkbox" 
+                    <input type="checkbox"
                         prop:checked=move || {program.active.get()}
                         on:input:target={
                             let program_clone = program.clone();
@@ -68,7 +108,7 @@ pub fn ProgramCard(
                         )
                     }></span>
                 </label>
-                <i class="material-icons"
+                <i class=stylance::classes!("material-symbols-outlined", program_style::share_icon)
                     on:click={
                         let program_clone = program.clone();
                         move |_| {
@@ -79,7 +119,7 @@ pub fn ProgramCard(
                     }}
                     style="cursor: pointer; margin: 0.5em;"
                 >"ios_share"</i>
-                <i class="material-icons"
+                <i class=stylance::classes!(program_style::delete_icon, "material-symbols-outlined")
                     on:click={
                         let program_clone = program.clone();
                         move |_| {
@@ -91,10 +131,8 @@ pub fn ProgramCard(
                             programs.retain(|p| p.id != program_clone.id);
                         });
                     }}
-                    style="color: red; cursor: pointer; margin: 0.5em;"
                 >"delete"</i>
             </div>
         </div>
     };
-
 }

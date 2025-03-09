@@ -101,14 +101,18 @@ pub async fn get_workouts_day(
 }
 
 #[tauri::command]
-pub async fn last_workouts(app: tauri::AppHandle) -> Vec<String> {
+pub async fn last_workouts(app: tauri::AppHandle) -> Vec<(String, i32, String)> {
     let conn = &mut establish_connection(&app);
     let workouts = workouts::table
         .order(workouts::dsl::id.desc())
-        .limit(10)
+        .limit(4)
         .distinct()
-        .select(workouts::dsl::link)
-        .load::<String>(conn)
+        .select((
+            workouts::dsl::link,
+            workouts::dsl::duration,
+            workouts::dsl::title,
+        ))
+        .load(conn)
         .expect("Error loading workouts");
     workouts
 }

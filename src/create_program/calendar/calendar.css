@@ -5,14 +5,23 @@
     align-items: center;
     justify-content: center;
 }
+.btn_container {
+    width: 3rem;
+    height: 3rem;
+}
+.btn_container + .btn_container {
+    margin-left: 0.5rem;
+}
+
 .btn {
     margin: 0px;
-    width: 50px;
-    height: 50px;
-    margin-top: 5px;
-    margin-right: 5px;
-    margin-left: 5px;
+    width: 3rem;
+    height: 3rem;
+    padding: 0px;
     justify-content: center;
+    align-items: center;
+    background-color: var(--color-primary);
+    box-shadow: none;
 }
 .active {
     background-color: rgba(0, 0, 0, 0.1);

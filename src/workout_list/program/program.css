@@ -3,10 +3,20 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  background-color: #ffffff;
+  background-color: color-mix(in hsl, var(--quinary-color) 30%, transparent 70%);
   padding: 1em;
   margin: 1em;
-  border-radius: 10px;
+  border-radius: 1.5rem;
+  cursor: pointer;
+  transition: all 3s ease-out;
+}
+
+.program_title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  background-color: transparent;
+  box-shadow: none;
+  field-sizing: content;
 }
 
 .program_info {
@@ -14,6 +24,15 @@
   flex-direction: row;
   justify-content: flex-end;
   align-items: center;
+}
+
+.share_icon {
+  font-size: 1.7rem;
+  margin: 0 0.5rem;
+}
+
+.delete_icon {
+  font-size: 1.7rem;
 }
 
 .switch {
