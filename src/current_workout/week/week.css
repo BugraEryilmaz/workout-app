@@ -11,21 +11,31 @@
 }
 .btn {
     margin: 0px;
-    width: 80px;
-    height: 55px;
+    padding: 0px;
+    justify-content: center;
+    width: 4rem;
+    height: 3.5rem;
     margin-top: 5px;
+    background-color: transparent;
+    box-shadow: none;
+    /* box-shadow: 0px 2px 2px 0px var(--quinary-color); */
+}
+.btn + .btn {
+    margin-left: 5px;
 }
 .btn-today {
     margin: 0px;
+    padding: 0px;
     width: 80px;
     height: 35px;
-    padding-bottom: 10px;
+    box-shadow: none;
+    /* box-shadow: 0px 2px 2px 0px var(--quinary-color); */
 }
 .active {
-    background-color: rgba(0, 0, 0, 0.1);
+    background-color: color-mix(in hsl, var(--quinary-color) 50%, transparent 50%); 
 }
 .today {
-    border: 3px solid rgba(193, 6, 6, 0.5);
+    border: 2px solid var(--quinary-color);
 }
 .day {
     display: flex;

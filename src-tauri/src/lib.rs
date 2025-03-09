@@ -28,8 +28,8 @@ pub fn run() {
         .setup(|app| {
             let handle = app.handle().clone();
             tauri::async_runtime::spawn(async move {
-              update(handle).await.unwrap();
-            });      
+                update(handle).await.unwrap();
+            });
             let path = app
                 .path()
                 .data_dir()
@@ -63,6 +63,8 @@ pub fn run() {
             delete_program,
             share_program,
             restore_program,
+            update_program,
+            update_workout,
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
@@ -70,25 +72,24 @@ pub fn run() {
 
 async fn update(app: tauri::AppHandle) -> tauri_plugin_updater::Result<()> {
     if let Some(update) = app.updater()?.check().await? {
-      let mut downloaded = 0;
-  
-      // alternatively we could also call update.download() and update.install() separately
-      update
-        .download_and_install(
-          |chunk_length, content_length| {
-            downloaded += chunk_length;
-            println!("downloaded {downloaded} from {content_length:?}");
-          },
-          || {
-            println!("download finished");
-          },
-        )
-        .await?;
-  
-      println!("update installed");
-      app.restart();
+        let mut downloaded = 0;
+
+        // alternatively we could also call update.download() and update.install() separately
+        update
+            .download_and_install(
+                |chunk_length, content_length| {
+                    downloaded += chunk_length;
+                    println!("downloaded {downloaded} from {content_length:?}");
+                },
+                || {
+                    println!("download finished");
+                },
+            )
+            .await?;
+
+        println!("update installed");
+        app.restart();
     }
-  
+
     Ok(())
-  }
-  
+}

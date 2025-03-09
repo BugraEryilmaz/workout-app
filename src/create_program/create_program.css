@@ -1,0 +1,77 @@
+.create_program_container {
+    width: 97svw;
+    height: 96vh;
+}
+
+.program_title {
+    font-size: 2rem;
+    margin: 0.3rem;
+    text-align: center;
+}
+
+.add_workout_section {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 0.5rem;
+    height: 66vh;
+}
+
+.workout_list {
+    flex: 5;
+    overflow-y: auto;
+}
+
+.workout_list_contents {
+
+}
+
+.recents_list {
+    flex: 1;
+    background-color: var(--quinary-color);
+}
+
+.recents_list_contents {
+    width: 97%;
+    height: 100%;
+    background-color: var(--primary-color);
+    justify-self: right;
+}
+
+.add_workout_link_textbox {
+    flex-grow: 5;
+    margin: 0 1rem;
+    background-color: color-mix(in hsl, var(--quinary-color) 30%, transparent 70%);
+    box-shadow: none;
+    text-align: center;
+    font-size: large;
+    border-radius: 2rem;
+}
+
+.add_workout_link_textbox:focus {
+    box-shadow: 0 0 0.2rem var(--tertiary-color);
+}
+
+.add_workout_button {
+    margin: 0 1rem;
+    background-color: color-mix(in hsl, var(--quinary-color) 30%, transparent 70%);
+    box-shadow: none;
+    border: none;
+    border-radius: 0.5rem;
+    border-radius: 1rem;
+}
+
+.add_workout_button:active {
+    background-color: color-mix(in hsl, var(--quinary-color) 70%, transparent 30%);
+}
+
+.add_workout_form {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    position: fixed;
+    bottom: 10vh;
+    width: calc(95vw);
+    height: 6vh;
+    background-color: var(--primary-color);
+    padding: 0.5rem;
+}

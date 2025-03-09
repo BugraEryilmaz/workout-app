@@ -1,0 +1,55 @@
+:root {
+    --primary-color: #eeecee;
+    --secondary-color: #D5A09D;
+    --tertiary-color: #B5B0B9;
+    --quaternary-color: #9D788B;
+    --quinary-color: #BBBBBB;
+    /* --quinary-color: #FFC131; */
+    /* --quinary-color: #222cb21a; */
+    background-color: var(--primary-color);
+}
+
+.nav-bar {
+    background-color: var(--primary-color);
+    display: flex;
+    justify-content: space-evenly;
+    padding: 0.5rem;
+    position: fixed;
+    height: 8dvh;
+    bottom: 0;
+    left: 0;
+    width: 100dvw;
+}
+
+.nav-button {
+    background-color: var(--primary-color);
+    box-shadow: none;
+    border: none;
+    border-radius: 0.5rem;
+    color: black;
+    font-size: 1.1rem;
+    padding: 0rem;
+    height: 3rem;
+    width: 9rem;
+}
+
+.nav-button:hover {
+    /* border: 1px solid var(--tertiary-color); */
+    cursor: pointer;
+}
+
+.nav-button:active {
+    background-color: var(--tertiary-color);
+    box-shadow: none;
+    color: white;
+    cursor: pointer;
+}
+
+.nav-button:focus {
+    /* border: 1px solid var(--secondary-color); */
+    cursor: pointer;
+}
+
+.nav-button-active {
+    font-weight: bold;
+}

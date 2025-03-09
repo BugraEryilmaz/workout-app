@@ -1,20 +1,27 @@
 .card-img{
-    height: 80px;
+    height: 5rem;
     object-fit: cover;
     aspect-ratio: 16/9;
-    border-radius: 5px;
+    border-radius: 0.5rem;
 }
 .card-body {
-    margin: 5px;
+    margin: 1rem;
     display: flex;
     flex-direction: row;
     align-items: center;
-    background-color:rgb(255, 255, 255);
-    border-radius: 10px;
+    background-color: color-mix(in hsl, var(--quinary-color) 30%, transparent 70%);
+    border-radius: 1rem;
+    height: max-content;
+    z-index: 1;
 }
+
+.card-body > div {
+    margin-right: 1rem;
+}
+
 .card-thumbnail {
-    margin: 9px;
-    height: 75px;
+    margin: 0px;
+    height: 5rem;
 }
 .card-duration {
     background-color: RGBA(0, 0, 0, 0.5);
@@ -26,16 +33,21 @@
     width: 50px;
 }
 .done {
-    background-color: RGBA(0, 255, 0, 0.1);
+    background-color: RGBA(0, 255, 0, 0.15);
     color: RGBA(0, 0, 0, 0.5);
-    filter: brightness(0.8) opacity(0.5);
+    filter: brightness(0.8) opacity(0.7);
 }
-.card-done {
-    background-color: RGBA(0, 0, 0, 0.5);
+.card_checkmark {
+    background-color: RGBA(0, 0, 0, 0.7);
     border-radius: 50%;
     position: relative;
-    top: -120px;
-    left: 0px;
-    width: 35px;
-    height: 35px;
+    top: -7.5rem;
+    left: 3.25rem;
+    width: 2.25rem;
+    height: 2.25rem;
+    display: none;
+}
+
+.card_checkmark_done {
+    display: block;
 }

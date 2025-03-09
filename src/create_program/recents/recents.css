@@ -1,0 +1,9 @@
+.recents-container {
+    overflow-y: hidden;
+    max-height: 21rem;
+}
+
+.recents-card {
+    cursor: pointer;
+    margin-top: 0;
+}

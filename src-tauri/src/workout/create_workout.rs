@@ -28,3 +28,14 @@ pub async fn create_workout(workout: Workout, app: tauri::AppHandle) -> Workout 
         .expect("Error inserting new workout");
     new_workout
 }
+
+#[tauri::command]
+pub async fn update_workout(workoutid: i32, title: String, app: tauri::AppHandle) -> Workout {
+    let conn = &mut establish_connection(&app);
+    let updated_workout =
+        diesel::update(workouts::dsl::workouts.filter(workouts::dsl::id.eq(workoutid)))
+            .set(workouts::dsl::title.eq(title))
+            .get_result(conn)
+            .expect("Error updating workout");
+    updated_workout
+}
