@@ -51,7 +51,7 @@ pub fn Calendar(
                             on:click={move |_| {
                                 active_day.set(date - active_week.get() * 7);
                             }}
-                            style:display={move || if date > day_ids.get().len() as i32 {"none"} else {"initial"}}
+                            style:display={move || if date > day_ids.get().len() as i32 {"none"} else {"flex"}}
                             >
                             <span>{date}</span>
                             </button>
@@ -62,7 +62,7 @@ pub fn Calendar(
             <div class=calendar::btn_container>
                 <button class={calendar::btn}
                     on:click={move |_| {active_week.update(|week| *week += 1); active_day.set(1);}}
-                    style:display={move || if active_week.get() == ((day_ids.get().len() as i32 - 1) / 7) as i32 {"none"} else {"initial"}}
+                    style:display={move || if active_week.get() == ((day_ids.get().len() as i32 - 1) / 7) as i32 {"none"} else {"flex"}}
                 >{">"}</button>
                 <button class={calendar::btn}
                     on:click={move |_| {
@@ -77,7 +77,7 @@ pub fn Calendar(
                             console_log(&format!("day_ids lenght: {:?}", day_ids.get().len()));
                         });
                     }}
-                    style:display={move || if active_week.get() == ((day_ids.get().len() as i32 - 1) / 7) as i32 {"initial"} else {"none"}}
+                    style:display={move || if active_week.get() == ((day_ids.get().len() as i32 - 1) / 7) as i32 {"flex"} else {"none"}}
                 >{"+"}</button>
             </div>
         </div>
