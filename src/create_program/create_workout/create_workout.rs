@@ -35,7 +35,7 @@ pub fn WorkoutCard(workouts: RwSignal<Vec<Workout>>) -> impl IntoView {
                             <div class=card_style::card_body>
                                 <div class=card_style::card_thumbnail>
                                     <img class=card_style::card_img src={ get_thumbnail(&workout.link).unwrap_or_else(|_| "https://miro.medium.com/v2/resize:fit:532/1*69aTahESxdQG3uHV8Y6Row.png".to_string()) } alt="Card image cap"/>
-                                    <p class=card_style::card_duration>{ workout.duration/60 }:{workout.duration%60}</p>
+                                    <p class=card_style::card_duration>{ workout.duration/60 }:{ format!("{:02}", workout.duration%60) }</p>
                                 </div>
                                 <form
                                     class=card_style::card_title_form
@@ -77,7 +77,7 @@ pub fn WorkoutCard(workouts: RwSignal<Vec<Workout>>) -> impl IntoView {
                                 </form>
                                 // <h3>{ workout.title.clone() }</h3>
                             </div>
-                            <i class="material-symbols-outlined"
+                            <i class="material-symbols"
                                 on:click={move |_| {
                                     spawn_local(async move {
                                         let arg = DeleteWorkoutArgs { workoutid: workout.id };

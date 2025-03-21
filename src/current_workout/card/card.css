@@ -11,6 +11,7 @@
     align-items: center;
     background-color: color-mix(in hsl, var(--quinary-color) 30%, transparent 70%);
     border-radius: 1rem;
+    text-align: left;
     height: max-content;
     z-index: 1;
 }

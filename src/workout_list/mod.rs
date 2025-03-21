@@ -80,7 +80,7 @@ pub fn WorkoutList(program_to_update: RwSignal<Option<Program>>) -> impl IntoVie
                 <button class=workout_list_style::add_program_button>
                     {"Add Program"}
                 </button>
-                <i class=stylance::classes!("material-symbols-outlined", workout_list_style::add_program_restore_button)
+                <i class=stylance::classes!("material-symbols", workout_list_style::add_program_restore_button)
                     on:click={
                         move |_| {
                         spawn_local(async move {
@@ -96,56 +96,62 @@ pub fn WorkoutList(program_to_update: RwSignal<Option<Program>>) -> impl IntoVie
                     >"settings_backup_restore"</i>
             </form>
 
-            <div
-                class=workout_list_style::action_box
-                style:display=move || if action.get().is_some() { "initial" } else { "none" }
-            >
-                <p> Bir programı aktive etmek diğerlerini iptal eder. İptal edilmiş programlar ilerlemelerini saklamaya devam eder. Bu programı aktifleştirmek istediğine emin misin? </p>
+            <div class=workout_list_style::action_box_background
+                style:display=move || if action.get().is_some() { "initial" } else { "none" }>
                 <div
-                    class=workout_list_style::action_buttons
+                    class=workout_list_style::action_box
+                    style:display=move || if action.get().is_some() { "initial" } else { "none" }
                 >
+                    <p> Bir programı aktive etmek diğerlerini iptal eder. İptal edilmiş programlar ilerlemelerini saklamaya devam eder. Bu programı aktifleştirmek istediğine emin misin? </p>
+                    <div
+                        class=workout_list_style::action_buttons_container
+                    >
                     <button
+                        class=workout_list_style::action_buttons
                         on:click=move |_| {
-                            let program = action.get().unwrap();
-                            action.set(None);
-                            program.active.set(true);
-                            programs.get().iter().for_each(|p| {
-                                if p.id != program.id {
-                                    p.active.set(false);
-                                }
+                                let program = action.get().unwrap();
+                                action.set(None);
+                                program.active.set(true);
+                                programs.get().iter().for_each(|p| {
+                                    if p.id != program.id {
+                                        p.active.set(false);
+                                    }
+                                });
+                                spawn_local(async move {
+                                    invoke("activate_program", to_value(&ProgramAction {
+                                        program: program.clone()
+                                    }).unwrap()).await;
                             });
-                            spawn_local(async move {
-                                invoke("activate_program", to_value(&ProgramAction {
-                                    program: program.clone()
-                                }).unwrap()).await;
-                        });
-                        }
-                    > Kaldığım yerden aktifleştir </button>
-                    <button
-                        on:click=move |_| {
-                            let program = action.get().unwrap();
-                            action.set(None);
-                            program.active.set(true);
-                            programs.get().iter().for_each(|p| {
-                                if p.id != program.id {
-                                    p.active.set(false);
-                                }
-                            });
-                            spawn_local(async move {
-                                invoke("clear_progress", to_value(&ProgramAction {
-                                    program: program.clone()
-                                }).unwrap()).await;
-                                invoke("activate_program", to_value(&ProgramAction {
-                                    program: program.clone()
-                                }).unwrap()).await;
-                            });
-                        }
-                    > Sıfırdan aktifleştir </button>
-                    <button
-                        on:click=move |_| {
-                            action.set(None);
-                        }
-                    > İptal </button>
+                            }
+                        > Kaldığım yerden aktifleştir </button>
+                        <button
+                            class=workout_list_style::action_buttons
+                            on:click=move |_| {
+                                let program = action.get().unwrap();
+                                action.set(None);
+                                program.active.set(true);
+                                programs.get().iter().for_each(|p| {
+                                    if p.id != program.id {
+                                        p.active.set(false);
+                                    }
+                                });
+                                spawn_local(async move {
+                                    invoke("clear_progress", to_value(&ProgramAction {
+                                        program: program.clone()
+                                    }).unwrap()).await;
+                                    invoke("activate_program", to_value(&ProgramAction {
+                                        program: program.clone()
+                                    }).unwrap()).await;
+                                });
+                            }
+                        > Sıfırdan aktifleştir </button>
+                        <button
+                            class=workout_list_style::action_buttons
+                            on:click=move |_| {
+                                action.set(None);
+                            }
+                        > İptal </button>
+                    </div>
                 </div>
             </div>
         </div>

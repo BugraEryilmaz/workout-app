@@ -34,7 +34,7 @@
     width: 97%;
     height: 100%;
     background-color: var(--primary-color);
-    justify-self: right;
+    margin-left: auto;
 }
 
 .add_workout_link_textbox {

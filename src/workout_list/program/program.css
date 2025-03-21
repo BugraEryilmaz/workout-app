@@ -11,12 +11,27 @@
   transition: all 3s ease-out;
 }
 
+.program_title_form {
+}
+
 .program_title {
+  cursor: text;
+  width: fit-content;
+  min-width: 1ch;
+  max-width: 100%;
   font-size: 1.5rem;
   font-weight: bold;
   background-color: transparent;
   box-shadow: none;
-  field-sizing: content;
+  /* field-sizing: content; */
+  text-align: left;
+  padding: 0.5rem;
+}
+
+
+.program_title:active, .program_title:focus {
+   border:none;
+   outline:none;
 }
 
 .program_info {
@@ -61,6 +76,12 @@
     -webkit-transition: .4s;
     transition: .4s;
   }
+
+  @media (prefers-color-scheme: dark) {
+    .slider {
+      background-color: #555;
+    }
+  }
   
   .slider:before {
     position: absolute;
@@ -73,11 +94,22 @@
     -webkit-transition: .4s;
     transition: .4s;
   }
+
+  @media (prefers-color-scheme: dark) {
+    .slider:before {
+      background-color: black;
+    }
+  }
   
   input:checked + .slider {
     background-color: #2196F3;
   }
-  
+
+  @media (prefers-color-scheme: dark) {
+    input:checked + .slider {
+      background-color: #1565C0; /* A darker shade of blue for dark mode */
+    }
+  }
   input:focus + .slider {
     box-shadow: 0 0 1px #2196F3;
   }

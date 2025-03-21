@@ -8,13 +8,15 @@
     flex: 1;
 }
 .card-title {
-    /* height: 3rem;
-    width: 100%;
-    background-color: transparent;
-    box-shadow: none;
-    field-sizing: fixed;
-    overflow-wrap: break-word;
-    overflow-y: auto; */
+    font-size: 1.2rem;
+    /* font-weight: bold; */
+    text-align: left;
+    padding: 0.5rem;
+}
+
+.card-title:active, .card-title:focus {
+   border:none;
+   outline:none;
 }
 
 .card {

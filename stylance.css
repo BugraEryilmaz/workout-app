@@ -7,6 +7,21 @@
     /* --quinary-color: #FFC131; */
     /* --quinary-color: #222cb21a; */
     background-color: var(--primary-color);
+    color: black;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --primary-color: #222222;
+        --secondary-color: #D5A09D;
+        --tertiary-color: #B5B0B9;
+        --quaternary-color: #9D788B;
+        --quinary-color: #555555;
+        /* --quinary-color: #FFC131; */
+        /* --quinary-color: #222cb21a; */
+        background-color: var(--primary-color);
+        color: #CCCCCC;
+    }
 }
 
 .nav-bar-a9b9a13 {
@@ -26,11 +41,11 @@
     box-shadow: none;
     border: none;
     border-radius: 0.5rem;
-    color: black;
+    /* color: black; */
     font-size: 1.1rem;
-    padding: 0rem;
+    padding: 1rem;
     height: 3rem;
-    width: 9rem;
+    /* width: 12rem; */
 }
 
 .nav-button-a9b9a13:hover {
@@ -39,7 +54,7 @@
 }
 
 .nav-button-a9b9a13:active {
-    background-color: var(--tertiary-color);
+    background-color: color-mix(in hsl, var(--quinary-color) 30%, transparent 70%);
     box-shadow: none;
     color: white;
     cursor: pointer;
@@ -78,9 +93,15 @@
     align-items: center;
     background-color: var(--color-primary);
     box-shadow: none;
+    display: flex;
 }
 .active-d4c0ac8 {
     background-color: rgba(0, 0, 0, 0.1);
+}
+@media (prefers-color-scheme: dark) {
+    .active-d4c0ac8 {
+        background-color: rgba(255, 255, 255, 0.1);
+    }
 }
 .day-d4c0ac8 {
     display: flex;
@@ -100,13 +121,15 @@
     flex: 1;
 }
 .card-title-aa4ea9c {
-    /* height: 3rem;
-    width: 100%;
-    background-color: transparent;
-    box-shadow: none;
-    field-sizing: fixed;
-    overflow-wrap: break-word;
-    overflow-y: auto; */
+    font-size: 1.2rem;
+    /* font-weight: bold; */
+    text-align: left;
+    padding: 0.5rem;
+}
+
+.card-title-aa4ea9c:active, .card-title-aa4ea9c:focus {
+   border:none;
+   outline:none;
 }
 
 .card-aa4ea9c {
@@ -164,6 +187,7 @@
     align-items: center;
     background-color: color-mix(in hsl, var(--quinary-color) 30%, transparent 70%);
     border-radius: 1rem;
+    text-align: left;
     height: max-content;
     z-index: 1;
 }
@@ -241,7 +265,7 @@
     width: 97%;
     height: 100%;
     background-color: var(--primary-color);
-    justify-self: right;
+    margin-left: auto;
 }
 
 .add_workout_link_textbox-4ceaaab {
@@ -300,12 +324,27 @@
   transition: all 3s ease-out;
 }
 
+.program_title_form-dde4a68 {
+}
+
 .program_title-dde4a68 {
+  cursor: text;
+  width: fit-content;
+  min-width: 1ch;
+  max-width: 100%;
   font-size: 1.5rem;
   font-weight: bold;
   background-color: transparent;
   box-shadow: none;
-  field-sizing: content;
+  /* field-sizing: content; */
+  text-align: left;
+  padding: 0.5rem;
+}
+
+
+.program_title-dde4a68:active, .program_title-dde4a68:focus {
+   border:none;
+   outline:none;
 }
 
 .program_info-dde4a68 {
@@ -350,6 +389,12 @@
     -webkit-transition: .4s;
     transition: .4s;
   }
+
+  @media (prefers-color-scheme: dark) {
+    .slider-dde4a68 {
+      background-color: #555;
+    }
+  }
   
   .slider-dde4a68:before {
     position: absolute;
@@ -362,11 +407,22 @@
     -webkit-transition: .4s;
     transition: .4s;
   }
+
+  @media (prefers-color-scheme: dark) {
+    .slider-dde4a68:before {
+      background-color: black;
+    }
+  }
   
   input:checked + .slider-dde4a68 {
     background-color: #2196F3;
   }
-  
+
+  @media (prefers-color-scheme: dark) {
+    input:checked + .slider-dde4a68 {
+      background-color: #1565C0; /* A darker shade of blue for dark mode */
+    }
+  }
   input:focus + .slider-dde4a68 {
     box-shadow: 0 0 1px #2196F3;
   }
@@ -447,9 +503,21 @@
     width: 95vw;
 }
 
+.action_box_background-6386bea {
+    background-color: rgba(0, 0, 0, 0.4);
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 999;
+    -webkit-backdrop-filter: blur(5px);
+    backdrop-filter: blur(5px);
+}
+
 .action_box-6386bea {
     float: left;
-    background-color: aliceblue;
+    background-color: var(--primary-color);
     width: 70vw;
     height: 30vh;
     position: fixed;
@@ -464,6 +532,9 @@
 }
 
 .action_buttons-6386bea {
+    background-color: color-mix(in hsl, var(--quinary-color) 30%, transparent 70%);
+}
+.action_buttons_container-6386bea {
     display: flex;
     justify-content: space-around;
     margin: 10px;

@@ -30,7 +30,7 @@ pub fn ProgramCard(
     set_action: RwSignal<Option<Program>>,
     programs: WriteSignal<Vec<Program>>,
 ) -> impl IntoView {
-    let title_input: NodeRef<html::Input> = NodeRef::new();
+    let title_input: NodeRef<html::Div> = NodeRef::new();
     let form_ref: NodeRef<html::Form> = NodeRef::new();
     return view! {
         <div
@@ -38,12 +38,13 @@ pub fn ProgramCard(
                     program_style::program
         )>
             <form
+                class=program_style::program_title_form
                 on:submit={
                     let program_clone = program.clone();
                     move |event| {
                     event.prevent_default();
                     console_log(&format!("Submitting form: {:?}", program_clone));
-                    let title = title_input.get().unwrap().value();
+                    let title = title_input.get().unwrap().inner_text();
                     let arg = UpdateProgramArgs { id: program_clone.id, title: title };
                     spawn_local(async move {
                         let program = invoke("update_program", to_value(&arg).unwrap()).await;
@@ -62,15 +63,24 @@ pub fn ProgramCard(
                     let _ = form_ref.get().unwrap().request_submit();
                 }
             >
-                <input
-                    class={
-                        stylance::classes!(
-                            program_style::program_title
-                        )
-                    }
-                    prop:value=program.title.clone()
+                <div
+                    class=program_style::program_title
                     node_ref=title_input
-                />
+                    contenteditable=true
+                    on:focusout=move |e| {
+                        // submit form on focus out
+                        e.prevent_default();
+                        let _ = form_ref.get().unwrap().request_submit();
+                    }
+                    on:keypress=move |e| {
+                        if e.key() == "Enter" {
+                            e.prevent_default();
+                            let _ = form_ref.get().unwrap().request_submit();
+                        }
+                    }
+                >
+                    { program.title.clone() }
+                </div>
             </form>
             <div
                 class={
@@ -108,7 +118,7 @@ pub fn ProgramCard(
                         )
                     }></span>
                 </label>
-                <i class=stylance::classes!("material-symbols-outlined", program_style::share_icon)
+                <i class=stylance::classes!("material-symbols", program_style::share_icon)
                     on:click={
                         let program_clone = program.clone();
                         move |_| {
@@ -119,7 +129,7 @@ pub fn ProgramCard(
                     }}
                     style="cursor: pointer; margin: 0.5em;"
                 >"ios_share"</i>
-                <i class=stylance::classes!(program_style::delete_icon, "material-symbols-outlined")
+                <i class=stylance::classes!(program_style::delete_icon, "material-symbols")
                     on:click={
                         let program_clone = program.clone();
                         move |_| {
