@@ -41,7 +41,9 @@ pub fn run() {
                 std::fs::File::create(&path).unwrap();
             }
             let mut conn = establish_connection(app.handle());
-            let _ = conn.run_pending_migrations(MIGRATIONS);
+            let migrated = conn.run_pending_migrations(MIGRATIONS);
+
+            println!("Migrated: {:?}", migrated);
 
             Ok(())
         })

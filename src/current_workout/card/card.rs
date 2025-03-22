@@ -5,7 +5,7 @@ use leptos::prelude::*;
 use leptos::task::spawn_local;
 
 use crate::utils::invoke::invoke;
-use crate::utils::models::Workout;
+use crate::utils::models::{Day, Workout};
 use crate::utils::video_metadata::get_thumbnail;
 
 #[derive(Serialize, Deserialize)]
@@ -20,7 +20,7 @@ stylance::import_style!(
 );
 
 #[component]
-pub fn card(workout: Workout) -> impl IntoView {
+pub fn card(workout: Workout, set_day: WriteSignal<Option<Day>>) -> impl IntoView {
     view! {
         <div>
             <div on:click={move |_| {
@@ -29,7 +29,9 @@ pub fn card(workout: Workout) -> impl IntoView {
                 spawn_local( async move  {
                     println!("Opening url from ui: {}", workout_clone.link.as_str());
                     let arg = to_value(&OpenArgs { workout: workout_clone }).unwrap();
-                    invoke("open", arg).await;
+                    let day = invoke("open", arg).await;
+                    let day: Option<Day> = serde_wasm_bindgen::from_value(day).unwrap();
+                    set_day.set(day);
                 });
             }}
             class=move || {stylance::classes!(card_style::card_body, if workout.done.get() {Some(card_style::done)} else {None})}

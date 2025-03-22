@@ -212,7 +212,6 @@
 }
 .done-50f23ff {
     background-color: RGBA(0, 255, 0, 0.15);
-    color: RGBA(0, 0, 0, 0.5);
     filter: brightness(0.8) opacity(0.7);
 }
 .card_checkmark-50f23ff {
@@ -310,6 +309,10 @@
 
 .current-workout-container-68b040d {
     margin-bottom: 10dvh;
+}
+
+.img-85d9830 {
+    height: 5rem;
 }
 
 .program-dde4a68 {

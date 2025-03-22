@@ -11,9 +11,10 @@ pub struct Workout {
     pub duration: i32,
     pub done: bool,
     pub day_id: i32,
+    pub done_date: Option<String>,
 }
 
-#[derive(Debug, Serialize, Deserialize, Queryable, Selectable)]
+#[derive(Debug, Serialize, Deserialize, Queryable, Selectable, Clone)]
 #[diesel(table_name = crate::schema::days)]
 #[diesel(check_for_backend(diesel::sqlite::Sqlite))]
 pub struct Day {
