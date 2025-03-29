@@ -27,4 +27,12 @@ pub struct Program {
     pub title: String,
     pub active: RwSignal<bool>,
     pub image: Option<String>,
+    pub deleted: bool,
+}
+
+#[derive(Debug, Serialize, Deserialize, Clone)]
+pub struct Achievement {
+    pub id: i32,
+    pub program_id: i32,
+    pub date: String,
 }

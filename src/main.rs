@@ -3,6 +3,7 @@ mod utils;
 mod current_workout;
 mod workout_list;
 mod create_program;
+mod achievements;
 
 use app::*;
 use leptos::prelude::*;
