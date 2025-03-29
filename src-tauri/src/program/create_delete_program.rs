@@ -25,9 +25,18 @@ pub async fn create_program(title: String, app: tauri::AppHandle) -> Program {
 #[tauri::command]
 pub async fn delete_program(programid: i32, app: tauri::AppHandle) {
     let conn = &mut establish_connection(&app);
-    diesel::delete(programs::dsl::programs.filter(programs::dsl::id.eq(programid)))
+    diesel::update(programs::dsl::programs.filter(programs::dsl::id.eq(programid)))
+        .set(programs::dsl::deleted.eq(true))
         .execute(conn)
         .expect("Error deleting program");
+}
+
+#[tauri::command]
+pub async fn delete_achievement(achievementid: i32, app: tauri::AppHandle) {
+    let conn = &mut establish_connection(&app);
+    diesel::delete(achievements::dsl::achievements.filter(achievements::dsl::id.eq(achievementid)))
+        .execute(conn)
+        .expect("Error deleting achievement");
 }
 
 #[tauri::command]

@@ -32,10 +32,10 @@
     top: -50px;
     left: 90px;
     width: 50px;
+    text-align: center;
 }
 .done {
     background-color: RGBA(0, 255, 0, 0.15);
-    color: RGBA(0, 0, 0, 0.5);
     filter: brightness(0.8) opacity(0.7);
 }
 .card_checkmark {

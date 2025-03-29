@@ -1,0 +1,10 @@
+-- Your SQL goes here
+CREATE TABLE IF NOT EXISTS achievements (
+    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    program_id INTEGER NOT NULL,
+    date DATE NOT NULL,
+    FOREIGN KEY (program_id) REFERENCES programs(id) ON DELETE CASCADE
+);
+
+ALTER TABLE programs
+ADD COLUMN deleted BOOLEAN NOT NULL DEFAULT FALSE;

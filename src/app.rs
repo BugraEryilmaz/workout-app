@@ -2,7 +2,7 @@ use leptos::prelude::*;
 
 use crate::{
     create_program::CreateProgram, current_workout::CurrentWorkout, utils::models::Program,
-    workout_list::WorkoutList,
+    workout_list::WorkoutList, achievements::AchivementList,
 };
 
 stylance::import_style!(
@@ -42,6 +42,11 @@ pub fn App() -> impl IntoView {
             >
                 <CreateProgram program=program_to_update.get().unwrap().clone()/>
             </Show>
+            <Show
+                when=move || active_page.get() == "achievements-page"
+            >
+                <AchivementList/>
+            </Show>
             <div
                 class=app_style::nav_bar
             >
@@ -65,6 +70,16 @@ pub fn App() -> impl IntoView {
                         )
                     }
                 >Workout List</button>
+                <button on:click={move |_| {
+                    set_active_page.set("achievements-page");
+                    }}
+                    class=move || {
+                        stylance::classes!(
+                            app_style::nav_button,
+                            if active_page.get() == "achievements-page" {Some(app_style::nav_button_active)} else { None }
+                        )
+                    }
+                >Achievements</button>
             </div>
         </main>
     }

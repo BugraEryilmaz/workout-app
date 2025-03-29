@@ -33,8 +33,17 @@ pub fn complete_day(day_id: i32, finish_date: NaiveDate, conn: &mut SqliteConnec
         .first::<i32>(conn)
         .optional()
         .expect("Error getting next day");
-    // If there is no next day, nothing to do
+    // If there is no next day, create and achievement
     if next_day_id.is_none() {
+        // Create achievement
+        let _achievement = diesel::insert_into(achievements::table)
+            .values((
+                achievements::dsl::program_id.eq(current_day_program_id),
+                achievements::dsl::date.eq(finish_date.to_string()),
+            ))
+            .returning(achievements::all_columns)
+            .get_result::<crate::models::Achievement>(conn)
+            .expect("Error creating achievement");
         return;
     }
     let next_day_id = next_day_id.unwrap();

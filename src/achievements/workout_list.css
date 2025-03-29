@@ -1,0 +1,96 @@
+.program_list {
+    margin-bottom: 20dvh;
+    width: 95vw;
+}
+
+.action_box_background {
+    background-color: rgba(0, 0, 0, 0.4);
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 999;
+    -webkit-backdrop-filter: blur(5px);
+    backdrop-filter: blur(5px);
+}
+
+.action_box {
+    float: left;
+    background-color: var(--primary-color);
+    width: 70vw;
+    height: 30vh;
+    position: fixed;
+    top: 35%;
+    left: 15%;
+    z-index: 1000;
+    box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.action_buttons {
+    background-color: color-mix(in hsl, var(--quinary-color) 30%, transparent 70%);
+}
+.action_buttons_container {
+    display: flex;
+    justify-content: space-around;
+    margin: 10px;
+}
+
+.add_program_form {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    position: fixed;
+    bottom: 10dvh;
+    width: calc(95vw - 1.5rem);
+    height: 8dvh;
+    background-color: var(--primary-color);
+    padding: 0.5rem;
+}
+
+.add_program_button {
+    margin: 0 1rem;
+    background-color: color-mix(in hsl, var(--quinary-color) 30%, transparent 70%);
+    box-shadow: none;
+    border: none;
+    border-radius: 0.5rem;
+    border-radius: 1rem;
+}
+
+.add_program_button:active {
+    background-color: color-mix(in hsl, var(--quinary-color) 70%, transparent 30%);
+}
+
+.add_program_textbox {
+    flex-grow: 5;
+    margin: 0 1rem;
+    background-color: color-mix(in hsl, var(--quinary-color) 30%, transparent 70%);
+    box-shadow: none;
+    text-align: center;
+    font-size: large;
+    border-radius: 2rem;
+}
+
+.add_program_textbox:focus {
+    box-shadow: 0 0 0.2rem var(--tertiary-color);
+}
+
+.add_program_restore_button {
+    margin: 0 1rem;
+    background-color: color-mix(in hsl, var(--quinary-color) 30%, transparent 70%);
+    box-shadow: none;
+    border: none;
+    border-radius: 1rem;
+    height: 100%;
+    flex-grow: 1;
+    align-content: center;
+    cursor: pointer;
+}
+
+.add_program_restore_button:active {
+    background-color: color-mix(in hsl, var(--quinary-color) 70%, transparent 30%);
+}

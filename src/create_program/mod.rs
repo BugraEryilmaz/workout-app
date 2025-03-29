@@ -69,6 +69,7 @@ pub fn CreateProgram(program: Program) -> impl IntoView {
                     link: link.clone(),
                     done: RwSignal::new(false),
                     day_id: -1,
+                    done_date: None,
                 },
             );
         }
@@ -139,6 +140,7 @@ pub fn CreateProgram(program: Program) -> impl IntoView {
                                 duration: metadata.duration as i32,
                                 done: RwSignal::new(false),
                                 day_id: day_ids.get()[active_date.get() as usize - 1],
+                                done_date: None,
                             }
                         };
                         let new_workout = invoke("create_workout", serde_wasm_bindgen::to_value(&new_workout).unwrap()).await;
