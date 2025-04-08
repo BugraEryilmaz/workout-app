@@ -28,6 +28,8 @@ pub struct Program {
     pub active: RwSignal<bool>,
     pub image: Option<String>,
     pub deleted: bool,
+    pub info: String,
+    pub created_at: String,
 }
 
 #[derive(Debug, Serialize, Deserialize, Clone)]
