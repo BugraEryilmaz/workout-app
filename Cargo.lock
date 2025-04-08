@@ -7258,7 +7258,7 @@ dependencies = [
 
 [[package]]
 name = "workout-app"
-version = "0.2.3"
+version = "0.2.4"
 dependencies = [
  "base64 0.22.1",
  "chrono",
@@ -7281,7 +7281,7 @@ dependencies = [
 
 [[package]]
 name = "workout-app-ui"
-version = "0.2.3"
+version = "0.2.4"
 dependencies = [
  "async-std",
  "bytes",

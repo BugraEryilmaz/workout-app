@@ -13,7 +13,7 @@ stylance::import_style!(
 
 #[component]
 pub fn App() -> impl IntoView {
-    let (active_page, set_active_page) = signal("update-program");
+    let (active_page, set_active_page) = signal("current-workout");
     // let (active_page, set_active_page) = signal("workout-list");
     let program_to_update: RwSignal<Option<Program>> = RwSignal::new(None);
 
