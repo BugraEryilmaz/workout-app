@@ -2,11 +2,13 @@ mod program;
 
 use crate::utils::invoke::invoke;
 use crate::utils::models::Program;
+use leptos::leptos_dom::logging::console_log;
 use leptos::task::spawn_local;
 use leptos::{html, prelude::*};
+use std::time::Duration;
 use program::*;
 use serde_wasm_bindgen::to_value;
-use wasm_bindgen::JsValue;
+use wasm_bindgen::{JsCast, JsValue};
 
 stylance::import_style!(
     #[allow(dead_code)]
@@ -19,38 +21,76 @@ struct CreateProgramArgs {
     title: String,
 }
 
+fn make_grid(div: NodeRef<html::Div>) {
+    let div = div.get().unwrap();
+    let childern = div.children();
+    let size = childern.length();
+    let mut i = 0;
+    console_log(&format!("div size: {}", size));
+    while i < size {
+        let child = childern.item(i).unwrap();
+        let child = child.dyn_into::<web_sys::HtmlElement>().unwrap();
+        let width = child.client_width();
+        child.class_list().add_1(stylance::classes!(workout_list_style::is_being_measured).as_str()).unwrap();
+        child.style().set_property("width", &format!("{}px", width)).unwrap();
+        let height = child.client_height();
+        let row_height = 10; // TODO: get this from css
+        let gap = 10; // TODO: get this from css
+        let row_span = ((height + gap) / (row_height + gap)) as i32;
+        child.style().set_property("grid-row-end", &format!("span {}", row_span + 1)).unwrap();
+        child.style().set_property("width", "auto").unwrap();
+        child.class_list().remove_1(stylance::classes!(workout_list_style::is_being_measured).as_str()).unwrap();
+        console_log(&format!("div height: {}, row span: {}", height, row_span));
+        i += 1;
+    }
+}
+
 #[component]
 pub fn WorkoutList(program_to_update: RwSignal<Option<Program>>) -> impl IntoView {
     let (programs, set_programs) = signal(Vec::<Program>::new());
     let action: RwSignal<Option<Program>> = RwSignal::new(None);
+    let input_element: NodeRef<html::Input> = NodeRef::new();
+    let div_ref: NodeRef<html::Div> = NodeRef::new();
 
     spawn_local(async move {
         let progs = invoke("get_programs", JsValue::null()).await;
         let progs: Vec<Program> = serde_wasm_bindgen::from_value(progs).unwrap();
         set_programs.set(progs);
+        set_timeout(move || {
+            make_grid(div_ref);
+        }, Duration::from_millis(100));
+    });
+    
+    let update_grid = move || {
+        spawn_local(async move {
+            set_timeout(move || {
+                make_grid(div_ref);
+            }, Duration::from_millis(100));
+        });
+    };
+
+    Effect::new(move || {
+        let _ = programs.get();
+        update_grid();
     });
 
-    let input_element: NodeRef<html::Input> = NodeRef::new();
 
     return view! {
         <div>
-            <div class=workout_list_style::program_list>
+            <div class=workout_list_style::program_list
+                node_ref=div_ref>
                 <For
                     each = { move || programs.get() }
                     key = { |program| program.id }
                     children = { move |program| {
                         view! {
                             <div>
-                                <ProgramCard program=program.clone() set_action=action programs=set_programs
-                                    on:click={move |e: web_sys::MouseEvent| {
-                                        if let Some(target) = e.target() {
-                                            if let Some(current_target) = e.current_target() {
-                                                if current_target.eq(&target){
-                                                    program_to_update.set(Some(program.clone()));
-                                                }
-                                            }
-                                        }
-                                    }}
+                                <ProgramCard 
+                                    program=program.clone() 
+                                    set_action=action 
+                                    programs=set_programs 
+                                    update_grid=update_grid 
+                                    program_to_update=program_to_update
                                 />
                             </div>
                         }

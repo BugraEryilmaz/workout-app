@@ -25,6 +25,8 @@ diesel::table! {
         active -> Bool,
         image -> Nullable<Text>,
         deleted -> Bool,
+        info -> Text,
+        created_at -> Date,
     }
 }
 

@@ -1,31 +1,62 @@
 .program {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: space-between;
   align-items: center;
   background-color: color-mix(in hsl, var(--quinary-color) 30%, transparent 70%);
-  padding: 1em;
-  margin: 1em;
+  width: 100%;
   border-radius: 1.5rem;
   cursor: pointer;
   transition: all 3s ease-out;
 }
 
 .program_title_form {
+  width: 100%;
+}
+
+.program_image {
+  width: 100%;
+  aspect-ratio: 16/9;
+  border-radius: 1.5rem;
+}
+
+.program_image_container{
+  aspect-ratio: 16/9;
+  width: 95%;
+  border-radius: 1.5rem;
+  background-color: var(--quinary-color);
+  transition: all 0.3s ease-out;
+  filter: brightness(0.85);
+  overflow: hidden;
 }
 
 .program_title {
   cursor: text;
-  width: fit-content;
   min-width: 1ch;
-  max-width: 100%;
+  width: 95%;
   font-size: 1.5rem;
   font-weight: bold;
   background-color: transparent;
   box-shadow: none;
   /* field-sizing: content; */
-  text-align: left;
+  text-align: center;
   padding: 0.5rem;
+}
+
+.program_description {
+  cursor: text;
+  min-width: 1ch;
+  width: calc(95% - 2rem);
+  font-size: 1rem;
+  font-weight: normal;
+  background-color: transparent;
+  box-shadow: none;
+  /* field-sizing: content; */
+  overflow-wrap: break-word;
+  text-align: left;
+  white-space: pre-wrap;
+  padding: 0.5rem;
+  margin-left: 1rem;
 }
 
 
@@ -36,9 +67,53 @@
 
 .program_info {
   display: flex;
-  flex-direction: row;
-  justify-content: flex-end;
+  flex-direction: row;  
   align-items: center;
+  justify-content: space-between;
+  width: 90%;
+  margin-right: 0.5rem;
+  padding: 0.5rem;
+}
+
+.program_image_overlay {
+  position: relative;
+  display: flex;
+  top: -4rem;
+  left: 0.5rem;
+  width: calc(100% - 2rem);
+  border-radius: 0.5rem;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0.5rem;
+}
+
+.program_image_icon {
+  background-color: color-mix(in hsl, var(--quinary-color) 70%, transparent 30%);
+  border-radius: 0.5rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+
+.program_image_icon:hover {
+  box-shadow: 0 0 0.2rem var(--tertiary-color);
+  filter: brightness(1.2); /* Increase brightness */
+  transform: scale(1.15); /* Slightly enlarge the icon */
+  transition: all 0.3s ease-out;
+}
+
+@media (prefers-color-scheme: dark) {
+  .program_image_icon {
+    filter: brightness(1.5); /* Increase brightness */
+    transform: scale(1.1); /* Slightly enlarge the icon */
+  }
+}
+
+.program_image_overlay > p {
+  background-color: color-mix(in hsl, var(--quinary-color) 70%, transparent 30%);
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  border-radius: 0.5rem;
+  cursor: text;
 }
 
 .share_icon {
@@ -46,8 +121,21 @@
   margin: 0 0.5rem;
 }
 
+
+.share_icon:hover {
+  filter: brightness(1.2); /* Increase brightness */
+  transform: scale(1.15); /* Slightly enlarge the icon */
+  transition: all 0.1s ease-out;
+}
+
 .delete_icon {
   font-size: 1.7rem;
+}
+
+.delete_icon:hover {
+  filter: brightness(1.2); /* Increase brightness */
+  transform: scale(1.15); /* Slightly enlarge the icon */
+  transition: all 0.1s ease-out;
 }
 
 .switch {

@@ -8,7 +8,7 @@ use diesel::prelude::*;
 pub async fn create_program(title: String, app: tauri::AppHandle) -> Program {
     let conn = &mut establish_connection(&app);
     let new_program: Program = diesel::insert_into(programs::table)
-        .values(programs::dsl::title.eq(title))
+        .values((programs::dsl::title.eq(title), programs::dsl::created_at.eq(chrono::Utc::now().naive_utc().date().to_string())))
         .returning(programs::all_columns)
         .get_result(conn)
         .expect("Error inserting new program");
@@ -25,10 +25,13 @@ pub async fn create_program(title: String, app: tauri::AppHandle) -> Program {
 #[tauri::command]
 pub async fn delete_program(programid: i32, app: tauri::AppHandle) {
     let conn = &mut establish_connection(&app);
-    diesel::update(programs::dsl::programs.filter(programs::dsl::id.eq(programid)))
+    let program: Program = diesel::update(programs::dsl::programs.filter(programs::dsl::id.eq(programid)))
         .set(programs::dsl::deleted.eq(true))
-        .execute(conn)
+        .get_result(conn)
         .expect("Error deleting program");
+    if let Some(image_path) = program.image {
+        std::fs::remove_file(image_path).expect("Error deleting program image");
+    }
 }
 
 #[tauri::command]
@@ -44,6 +47,21 @@ pub async fn update_program(id: i32, title: String, app: tauri::AppHandle) -> Pr
     let conn = &mut establish_connection(&app);
     let updated_program = diesel::update(programs::dsl::programs.filter(programs::dsl::id.eq(id)))
         .set(programs::dsl::title.eq(title))
+        .get_result(conn)
+        .expect("Error updating program");
+
+    updated_program
+}
+
+#[tauri::command]
+pub async fn update_info(
+    programid: i32,
+    info: String,
+    app: tauri::AppHandle,
+) -> Program {
+    let conn = &mut establish_connection(&app);
+    let updated_program = diesel::update(programs::dsl::programs.filter(programs::dsl::id.eq(programid)))
+        .set(programs::dsl::info.eq(info))
         .get_result(conn)
         .expect("Error updating program");
 

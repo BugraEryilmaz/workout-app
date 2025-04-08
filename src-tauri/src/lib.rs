@@ -69,6 +69,9 @@ pub fn run() {
             update_workout,
             get_achievements,
             delete_achievement,
+            update_program_image,
+            get_program_image,
+            update_info,
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");

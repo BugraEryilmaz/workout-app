@@ -1,7 +1,23 @@
 .program_list {
     margin-bottom: 20dvh;
     width: 95vw;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    --grid-gutter: 10px;
+    grid-gap: var(--grid-gutter);
+    --grid-row-height: 10px;
+    grid-auto-rows: var(--grid-row-height);
+    grid-auto-flow: row dense;
+    position: relative;
 }
+.is_being_measured {
+    /* temporary styles for measuring grid items */
+    position: absolute;
+    width: 300px;
+    top: 0;
+    left: 0;
+  }
+  
 
 .action_box_background {
     background-color: rgba(0, 0, 0, 0.4);
@@ -18,7 +34,7 @@
 .action_box {
     float: left;
     background-color: var(--primary-color);
-    width: 70vw;
+    width: 80vw;
     height: 30vh;
     position: fixed;
     top: 35%;
@@ -46,7 +62,7 @@
     justify-content: space-around;
     position: fixed;
     bottom: 10dvh;
-    width: calc(95vw - 1.5rem);
+    width: calc(95vw);
     height: 8dvh;
     background-color: var(--primary-color);
     padding: 0.5rem;
