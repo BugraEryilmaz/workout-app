@@ -1,3 +1,10 @@
 .current-workout-container {
     margin-bottom: 10dvh;
 }
+
+.no-workout {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}

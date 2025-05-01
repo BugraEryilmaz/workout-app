@@ -46,3 +46,13 @@ pub struct Achievement {
     pub program_id: i32,
     pub date: String,
 }
+
+#[derive(Debug, Serialize, Deserialize, Queryable, Selectable)]
+#[diesel(table_name = crate::schema::add_auto_programs)]
+#[diesel(check_for_backend(diesel::sqlite::Sqlite))]
+pub struct AddAutoPrograms {
+    pub id: i32,
+    pub program_name: String,
+    pub url: String,
+    pub done: bool,
+}

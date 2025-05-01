@@ -4,6 +4,7 @@ mod week;
 
 use card::card::*;
 use done_day::*;
+use leptos::leptos_dom::logging::console_log;
 use leptos::{prelude::*, task::spawn_local};
 use serde::{Deserialize, Serialize};
 use week::week::*;
@@ -57,6 +58,9 @@ pub fn CurrentWorkout() -> impl IntoView {
                     }
                 }}
             />
+            <Show when=move || {today_workouts.get().is_empty()}>
+                <RestDay date={active_day} />
+            </Show>
             <Show when=move || {day.get().is_some() && day.get().unwrap().complete_date == Some(active_day.get().to_string())}>
                 <DoneDay day={day} date={active_day} />
             </Show>

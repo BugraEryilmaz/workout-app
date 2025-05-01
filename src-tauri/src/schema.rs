@@ -9,6 +9,15 @@ diesel::table! {
 }
 
 diesel::table! {
+    add_auto_programs (id) {
+        id -> Integer,
+        program_name -> Text,
+        url -> Text,
+        done -> Bool,
+    }
+}
+
+diesel::table! {
     days (id) {
         id -> Integer,
         program_id -> Integer,
@@ -48,6 +57,7 @@ diesel::joinable!(workouts -> days (day_id));
 
 diesel::allow_tables_to_appear_in_same_query!(
     achievements,
+    add_auto_programs,
     days,
     programs,
     workouts,
