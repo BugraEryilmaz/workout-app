@@ -1,0 +1,7 @@
+-- Your SQL goes here
+CREATE TABLE IF NOT EXISTS add_auto_programs (
+    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    program_name VARCHAR(255) NOT NULL,
+    url VARCHAR(255) NOT NULL,
+    done BOOLEAN NOT NULL DEFAULT FALSE
+);

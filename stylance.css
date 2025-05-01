@@ -311,8 +311,19 @@
     margin-bottom: 10dvh;
 }
 
+.no-workout-68b040d {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
 .img-85d9830 {
     height: 5rem;
+}
+
+.rest-85d9830 {
+    height: 10rem;
 }
 
 .program-baca6f9 {

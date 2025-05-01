@@ -45,6 +45,15 @@ pub fn run() {
 
             println!("Migrated: {:?}", migrated);
 
+            let handle = app.handle().clone();
+            tauri::async_runtime::spawn(async move {
+                let handle = handle;
+                check_first_time(&handle).await;
+                println!("First time check done");
+                download_and_add_programs(&handle).await;
+                println!("Download and add programs done");
+            });
+
             Ok(())
         })
         .plugin(tauri_plugin_opener::init())
@@ -95,6 +104,13 @@ async fn update(app: tauri::AppHandle) -> tauri_plugin_updater::Result<()> {
             .await?;
 
         println!("update installed");
+
+        // Get the programs from raw json
+        let programs = update.raw_json;
+        let programs = get_programs_from_latest(&programs);
+        add_programs_to_db_for_later(&app, programs)
+            .await;
+        
         app.restart();
     }
 
