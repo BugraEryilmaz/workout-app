@@ -5,3 +5,4 @@ dist/
 ~/
 build.bat
 publish.bat
+rm-tag.bat
