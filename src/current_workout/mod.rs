@@ -4,7 +4,6 @@ mod week;
 
 use card::card::*;
 use done_day::*;
-use leptos::leptos_dom::logging::console_log;
 use leptos::{prelude::*, task::spawn_local};
 use serde::{Deserialize, Serialize};
 use week::week::*;
