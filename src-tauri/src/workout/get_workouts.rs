@@ -141,7 +141,7 @@ pub async fn last_workouts(app: tauri::AppHandle) -> Vec<(String, i32, String)> 
     let conn = &mut establish_connection(&app);
     let workouts = workouts::table
         .order(workouts::dsl::id.desc())
-        .limit(4)
+        .limit(10)
         .distinct()
         .select((
             workouts::dsl::link,

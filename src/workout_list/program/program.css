@@ -12,12 +12,14 @@
 
 .program_title_form {
   width: 100%;
+  transition: background-color 0.15s ease, box-shadow 0.15s ease;
 }
 
 .program_image {
   width: 100%;
   aspect-ratio: 16/9;
   border-radius: 1.5rem;
+  transition: transform 0.15s ease, filter 0.15s ease;
 }
 
 .program_image_container{
@@ -28,6 +30,17 @@
   transition: all 0.3s ease-out;
   filter: brightness(0.85);
   overflow: hidden;
+}
+
+.program_image_container:hover {
+  box-shadow: 0 6px 16px color-mix(in hsl, var(--quinary-color) 45%, transparent 55%);
+  transform: translateY(-1px);
+  filter: brightness(1);
+  cursor: pointer;
+}
+
+.program_image_container:hover .program_image {
+  transform: scale(1.1);
 }
 
 .program_title {
@@ -41,6 +54,13 @@
   /* field-sizing: content; */
   text-align: center;
   padding: 0.5rem;
+  border-radius: 0.5rem;
+  transition: background-color 0.15s ease, box-shadow 0.15s ease, color 0.15s ease;
+}
+
+.program_title:hover {
+  background-color: color-mix(in hsl, var(--quinary-color) 18%, transparent 82%);
+  box-shadow: 0 6px 16px color-mix(in hsl, var(--quinary-color) 45%, transparent 55%);
 }
 
 .program_description {
@@ -57,12 +77,33 @@
   white-space: pre-wrap;
   padding: 0.5rem;
   margin-left: 1rem;
+  border-radius: 0.5rem;
+  transition: background-color 0.15s ease, box-shadow 0.15s ease, color 0.15s ease;
+}
+
+.program_description:hover {
+  background-color: color-mix(in hsl, var(--quinary-color) 18%, transparent 82%);
+  box-shadow: 0 6px 16px color-mix(in hsl, var(--quinary-color) 45%, transparent 55%);
 }
 
 
 .program_title:active, .program_title:focus {
    border:none;
    outline:none;
+}
+
+.program_title:focus {
+  background-color: color-mix(in hsl, var(--quinary-color) 25%, transparent 75%);
+}
+
+.program_description:focus {
+  background-color: color-mix(in hsl, var(--quinary-color) 25%, transparent 75%);
+  border:none;
+  outline:none;
+}
+
+.program_title_form:focus-within {
+  box-shadow: 0 6px 16px color-mix(in hsl, var(--quinary-color) 35%, transparent 65%);
 }
 
 .program_info {
@@ -92,13 +133,17 @@
   border-radius: 0.5rem;
   padding-left: 0.5rem;
   padding-right: 0.5rem;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(2px);
+  transition: opacity 0.15s ease, transform 0.15s ease, filter 0.15s ease;
 }
 
 .program_image_icon:hover {
   box-shadow: 0 0 0.2rem var(--tertiary-color);
   filter: brightness(1.2); /* Increase brightness */
   transform: scale(1.15); /* Slightly enlarge the icon */
-  transition: all 0.3s ease-out;
+  transition: all 0.15s ease-out;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -119,23 +164,43 @@
 .share_icon {
   font-size: 1.7rem;
   margin: 0 0.5rem;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(2px);
+  border-radius: 0.375rem;
+  transition: opacity 0.15s ease, transform 0.15s ease, filter 0.15s ease, background-color 0.15s ease, box-shadow 0.15s ease;
 }
 
 
 .share_icon:hover {
-  filter: brightness(1.2); /* Increase brightness */
-  transform: scale(1.15); /* Slightly enlarge the icon */
-  transition: all 0.1s ease-out;
+  filter: brightness(1.2);
+  transform: translateY(-5px) scale(1.15);
+  background-color: color-mix(in hsl, var(--quinary-color) 25%, transparent 75%);
+  box-shadow: 0 6px 16px color-mix(in hsl, var(--quinary-color) 45%, transparent 55%);
 }
 
 .delete_icon {
   font-size: 1.7rem;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(2px);
+  border-radius: 0.375rem;
+  transition: opacity 0.15s ease, transform 0.15s ease, filter 0.15s ease, background-color 0.15s ease, box-shadow 0.15s ease;
 }
 
 .delete_icon:hover {
-  filter: brightness(1.2); /* Increase brightness */
-  transform: scale(1.15); /* Slightly enlarge the icon */
-  transition: all 0.1s ease-out;
+  filter: brightness(1.2);
+  transform: translateY(-5px) scale(1.15);
+  background-color: color-mix(in hsl, var(--quinary-color) 25%, transparent 75%);
+  box-shadow: 0 6px 16px color-mix(in hsl, var(--quinary-color) 45%, transparent 55%);
+}
+
+.program_image_container:hover .program_image_icon,
+.program:hover .share_icon,
+.program:hover .delete_icon {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
 }
 
 .switch {
@@ -165,9 +230,28 @@
     transition: .4s;
   }
 
+  /* Emphasize slider on hover */
+  .switch:hover .slider {
+    box-shadow: 0 6px 16px color-mix(in hsl, var(--quinary-color) 35%, transparent 65%);
+    background-color: color-mix(in hsl, var(--quinary-color) 18%, #ccc 82%);
+  }
+
+  /* Preserve blue background when checked, even on hover */
+  .switch:hover input:checked + .slider {
+    background-color: #2196F3;
+  }
+
   @media (prefers-color-scheme: dark) {
     .slider {
       background-color: #555;
+    }
+    .switch:hover .slider {
+      box-shadow: 0 6px 16px color-mix(in hsl, var(--quinary-color) 35%, transparent 65%);
+      background-color: color-mix(in hsl, var(--quinary-color) 18%, #555 82%);
+    }
+    /* Preserve blue background when checked, even on hover (dark) */
+    .switch:hover input:checked + .slider {
+      background-color: #1565C0;
     }
   }
   
@@ -181,6 +265,22 @@
     background-color: white;
     -webkit-transition: .4s;
     transition: .4s;
+  }
+
+  /* Slight knob emphasis on hover and press */
+  .switch:hover .slider:before {
+    transform: scale(1.05);
+  }
+  .switch:active .slider:before {
+    transform: scale(0.95);
+  }
+
+  /* Keep knob on the right when checked during hover/press */
+  .switch:hover input:checked + .slider:before {
+    transform: translateX(26px) scale(1.05);
+  }
+  .switch:active input:checked + .slider:before {
+    transform: translateX(26px) scale(0.95);
   }
 
   @media (prefers-color-scheme: dark) {

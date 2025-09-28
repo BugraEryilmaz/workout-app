@@ -46,10 +46,14 @@
     padding: 1rem;
     height: 3rem;
     /* width: 12rem; */
+    transition: background-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease, color 0.15s ease;
 }
 
 .nav-button-a9b9a13:hover {
     /* border: 1px solid var(--tertiary-color); */
+    background-color: color-mix(in hsl, var(--quinary-color) 18%, transparent 82%);
+    box-shadow: 0 6px 16px color-mix(in hsl, var(--quinary-color) 45%, transparent 55%);
+    transform: translateY(-1px) scale(1.02);
     cursor: pointer;
 }
 
@@ -94,6 +98,17 @@
     background-color: var(--color-primary);
     box-shadow: none;
     display: flex;
+    cursor: pointer;
+    transition: background-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease, color 0.15s ease;
+}
+
+.btn-d4c0ac8:hover {
+    box-shadow: 0 6px 16px color-mix(in hsl, var(--quinary-color) 45%, transparent 55%);
+    transform: translateY(-1px) scale(1.02);
+}
+
+.btn-d4c0ac8:not(.active-d4c0ac8):hover {
+    background-color: color-mix(in hsl, var(--quinary-color) 18%, transparent 82%);
 }
 .active-d4c0ac8 {
     background-color: rgba(0, 0, 0, 0.1);
@@ -116,6 +131,7 @@
     object-fit: cover;
     aspect-ratio: 16/9;
     border-radius: 5px;
+    transition: background-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease, color 0.15s ease;
 }
 .card_title_form-aa4ea9c {
     flex: 1;
@@ -132,6 +148,9 @@
    outline:none;
 }
 
+/* Marker class for Stylance export */
+.delete_icon-aa4ea9c {}
+
 .card-aa4ea9c {
     background-color: color-mix(in hsl, var(--quinary-color) 30%, transparent 70%);
     display: flex;
@@ -139,12 +158,39 @@
     align-items: center;
     margin: 5px;
     border-radius: 10px;
+    transition: background-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease, color 0.15s ease;
 }
 .card-body-aa4ea9c {
     display: flex;
     flex: 1;
     align-items: center;
     flex-direction: row;
+}
+
+.card-aa4ea9c:hover .card-img-aa4ea9c {
+    transform: scale(1.08);
+}
+
+/* Hide delete icon until hover */
+.delete_icon-aa4ea9c {
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(2px);
+    transition: opacity 0.15s ease, transform 0.15s ease, filter 0.15s ease, background-color 0.15s ease, box-shadow 0.15s ease;
+    border-radius: 0.375rem;
+}
+
+.card-aa4ea9c:hover .delete_icon-aa4ea9c {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+}
+
+.delete_icon-aa4ea9c:hover {
+    filter: brightness(1.1);
+    transform: translateY(-1px) scale(1.1);
+    background-color: color-mix(in hsl, var(--quinary-color) 25%, transparent 75%);
+    box-shadow: 0 6px 16px color-mix(in hsl, var(--quinary-color) 45%, transparent 55%);
 }
 .card-thumbnail-aa4ea9c {
     margin: 9px;
@@ -179,6 +225,7 @@
     object-fit: cover;
     aspect-ratio: 16/9;
     border-radius: 0.5rem;
+    transition: transform 0.15s ease, filter 0.15s ease;
 }
 .card-body-50f23ff {
     margin: 1rem;
@@ -190,6 +237,8 @@
     text-align: left;
     height: max-content;
     z-index: 1;
+    cursor: pointer;
+    transition: background-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease, filter 0.15s ease;
 }
 
 .card-body-50f23ff > div {
@@ -199,6 +248,9 @@
 .card-thumbnail-50f23ff {
     margin: 0px;
     height: 5rem;
+    overflow: hidden;
+    border-radius: 0.5rem;
+    transition: transform 0.15s ease;
 }
 .card-duration-50f23ff {
     background-color: RGBA(0, 0, 0, 0.5);
@@ -213,6 +265,31 @@
 .done-50f23ff {
     background-color: RGBA(0, 255, 0, 0.15);
     filter: brightness(0.8) opacity(0.7);
+}
+
+.card-body-50f23ff:hover {
+    box-shadow: 0 6px 16px color-mix(in hsl, var(--quinary-color) 45%, transparent 55%);
+    transform: translateY(-1px) scale(1.01);
+}
+
+/* Only non-done cards should tint background on hover */
+.card-body-50f23ff:not(.done-50f23ff):hover {
+    background-color: color-mix(in hsl, var(--quinary-color) 18%, transparent 82%);
+}
+
+/* Done cards keep their green background but get a subtle feedback */
+.card-body-50f23ff.done-50f23ff:hover {
+    filter: brightness(0.9) opacity(0.85);
+}
+
+/* Optional: slight image emphasis when hovering the card */
+.card-body-50f23ff:hover .card-img-50f23ff {
+    filter: brightness(1.03);
+    transform: scale(1.15);
+}
+
+.card-body-50f23ff:hover .card-thumbnail-50f23ff {
+    transform: scale(1.08);
 }
 .card_checkmark-50f23ff {
     background-color: RGBA(0, 0, 0, 0.7);
@@ -238,13 +315,22 @@
     font-size: 2rem;
     margin: 0.3rem;
     text-align: center;
+    border-radius: 0.5rem;
+    padding: 0.25rem 0.5rem;
+    transition: background-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease, color 0.15s ease;
+}
+
+.program_title-4ceaaab:hover {
+    background-color: color-mix(in hsl, var(--quinary-color) 18%, transparent 82%);
+    box-shadow: 0 6px 16px color-mix(in hsl, var(--quinary-color) 45%, transparent 55%);
+    transform: translateY(-1px);
 }
 
 .add_workout_section-4ceaaab {
     display: flex;
     justify-content: space-around;
     margin-top: 0.5rem;
-    height: 66vh;
+    height: 62vh;
 }
 
 .workout_list-4ceaaab {
@@ -276,6 +362,12 @@
     text-align: center;
     font-size: large;
     border-radius: 2rem;
+    transition: background-color 0.15s ease, box-shadow 0.15s ease, color 0.15s ease;
+}
+
+.add_workout_link_textbox-4ceaaab:hover {
+    background-color: color-mix(in hsl, var(--quinary-color) 18%, transparent 82%);
+    box-shadow: 0 6px 16px color-mix(in hsl, var(--quinary-color) 35%, transparent 65%);
 }
 
 .add_workout_link_textbox-4ceaaab:focus {
@@ -289,6 +381,14 @@
     border: none;
     border-radius: 0.5rem;
     border-radius: 1rem;
+    transition: background-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease, color 0.15s ease;
+    cursor: pointer;
+}
+
+.add_workout_button-4ceaaab:hover {
+    background-color: color-mix(in hsl, var(--quinary-color) 18%, transparent 82%);
+    box-shadow: 0 6px 16px color-mix(in hsl, var(--quinary-color) 45%, transparent 55%);
+    transform: translateY(-1px) scale(1.02);
 }
 
 .add_workout_button-4ceaaab:active {
@@ -490,12 +590,14 @@
 
 .program_title_form-dde4a68 {
   width: 100%;
+  transition: background-color 0.15s ease, box-shadow 0.15s ease;
 }
 
 .program_image-dde4a68 {
   width: 100%;
   aspect-ratio: 16/9;
   border-radius: 1.5rem;
+  transition: transform 0.15s ease, filter 0.15s ease;
 }
 
 .program_image_container-dde4a68{
@@ -506,6 +608,17 @@
   transition: all 0.3s ease-out;
   filter: brightness(0.85);
   overflow: hidden;
+}
+
+.program_image_container-dde4a68:hover {
+  box-shadow: 0 6px 16px color-mix(in hsl, var(--quinary-color) 45%, transparent 55%);
+  transform: translateY(-1px);
+  filter: brightness(1);
+  cursor: pointer;
+}
+
+.program_image_container-dde4a68:hover .program_image-dde4a68 {
+  transform: scale(1.1);
 }
 
 .program_title-dde4a68 {
@@ -519,6 +632,13 @@
   /* field-sizing: content; */
   text-align: center;
   padding: 0.5rem;
+  border-radius: 0.5rem;
+  transition: background-color 0.15s ease, box-shadow 0.15s ease, color 0.15s ease;
+}
+
+.program_title-dde4a68:hover {
+  background-color: color-mix(in hsl, var(--quinary-color) 18%, transparent 82%);
+  box-shadow: 0 6px 16px color-mix(in hsl, var(--quinary-color) 45%, transparent 55%);
 }
 
 .program_description-dde4a68 {
@@ -535,12 +655,33 @@
   white-space: pre-wrap;
   padding: 0.5rem;
   margin-left: 1rem;
+  border-radius: 0.5rem;
+  transition: background-color 0.15s ease, box-shadow 0.15s ease, color 0.15s ease;
+}
+
+.program_description-dde4a68:hover {
+  background-color: color-mix(in hsl, var(--quinary-color) 18%, transparent 82%);
+  box-shadow: 0 6px 16px color-mix(in hsl, var(--quinary-color) 45%, transparent 55%);
 }
 
 
 .program_title-dde4a68:active, .program_title-dde4a68:focus {
    border:none;
    outline:none;
+}
+
+.program_title-dde4a68:focus {
+  background-color: color-mix(in hsl, var(--quinary-color) 25%, transparent 75%);
+}
+
+.program_description-dde4a68:focus {
+  background-color: color-mix(in hsl, var(--quinary-color) 25%, transparent 75%);
+  border:none;
+  outline:none;
+}
+
+.program_title_form-dde4a68:focus-within {
+  box-shadow: 0 6px 16px color-mix(in hsl, var(--quinary-color) 35%, transparent 65%);
 }
 
 .program_info-dde4a68 {
@@ -570,13 +711,17 @@
   border-radius: 0.5rem;
   padding-left: 0.5rem;
   padding-right: 0.5rem;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(2px);
+  transition: opacity 0.15s ease, transform 0.15s ease, filter 0.15s ease;
 }
 
 .program_image_icon-dde4a68:hover {
   box-shadow: 0 0 0.2rem var(--tertiary-color);
   filter: brightness(1.2); /* Increase brightness */
   transform: scale(1.15); /* Slightly enlarge the icon */
-  transition: all 0.3s ease-out;
+  transition: all 0.15s ease-out;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -597,23 +742,43 @@
 .share_icon-dde4a68 {
   font-size: 1.7rem;
   margin: 0 0.5rem;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(2px);
+  border-radius: 0.375rem;
+  transition: opacity 0.15s ease, transform 0.15s ease, filter 0.15s ease, background-color 0.15s ease, box-shadow 0.15s ease;
 }
 
 
 .share_icon-dde4a68:hover {
-  filter: brightness(1.2); /* Increase brightness */
-  transform: scale(1.15); /* Slightly enlarge the icon */
-  transition: all 0.1s ease-out;
+  filter: brightness(1.2);
+  transform: translateY(-5px) scale(1.15);
+  background-color: color-mix(in hsl, var(--quinary-color) 25%, transparent 75%);
+  box-shadow: 0 6px 16px color-mix(in hsl, var(--quinary-color) 45%, transparent 55%);
 }
 
 .delete_icon-dde4a68 {
   font-size: 1.7rem;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(2px);
+  border-radius: 0.375rem;
+  transition: opacity 0.15s ease, transform 0.15s ease, filter 0.15s ease, background-color 0.15s ease, box-shadow 0.15s ease;
 }
 
 .delete_icon-dde4a68:hover {
-  filter: brightness(1.2); /* Increase brightness */
-  transform: scale(1.15); /* Slightly enlarge the icon */
-  transition: all 0.1s ease-out;
+  filter: brightness(1.2);
+  transform: translateY(-5px) scale(1.15);
+  background-color: color-mix(in hsl, var(--quinary-color) 25%, transparent 75%);
+  box-shadow: 0 6px 16px color-mix(in hsl, var(--quinary-color) 45%, transparent 55%);
+}
+
+.program_image_container-dde4a68:hover .program_image_icon-dde4a68,
+.program-dde4a68:hover .share_icon-dde4a68,
+.program-dde4a68:hover .delete_icon-dde4a68 {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
 }
 
 .switch-dde4a68 {
@@ -643,9 +808,28 @@
     transition: .4s;
   }
 
+  /* Emphasize slider on hover */
+  .switch-dde4a68:hover .slider-dde4a68 {
+    box-shadow: 0 6px 16px color-mix(in hsl, var(--quinary-color) 35%, transparent 65%);
+    background-color: color-mix(in hsl, var(--quinary-color) 18%, #ccc 82%);
+  }
+
+  /* Preserve blue background when checked, even on hover */
+  .switch-dde4a68:hover input:checked + .slider-dde4a68 {
+    background-color: #2196F3;
+  }
+
   @media (prefers-color-scheme: dark) {
     .slider-dde4a68 {
       background-color: #555;
+    }
+    .switch-dde4a68:hover .slider-dde4a68 {
+      box-shadow: 0 6px 16px color-mix(in hsl, var(--quinary-color) 35%, transparent 65%);
+      background-color: color-mix(in hsl, var(--quinary-color) 18%, #555 82%);
+    }
+    /* Preserve blue background when checked, even on hover (dark) */
+    .switch-dde4a68:hover input:checked + .slider-dde4a68 {
+      background-color: #1565C0;
     }
   }
   
@@ -659,6 +843,22 @@
     background-color: white;
     -webkit-transition: .4s;
     transition: .4s;
+  }
+
+  /* Slight knob emphasis on hover and press */
+  .switch-dde4a68:hover .slider-dde4a68:before {
+    transform: scale(1.05);
+  }
+  .switch-dde4a68:active .slider-dde4a68:before {
+    transform: scale(0.95);
+  }
+
+  /* Keep knob on the right when checked during hover/press */
+  .switch-dde4a68:hover input:checked + .slider-dde4a68:before {
+    transform: translateX(26px) scale(1.05);
+  }
+  .switch-dde4a68:active input:checked + .slider-dde4a68:before {
+    transform: translateX(26px) scale(0.95);
   }
 
   @media (prefers-color-scheme: dark) {
@@ -697,13 +897,78 @@
   
 
 .recents-container-fc30be2 {
-    overflow-y: hidden;
-    max-height: 21rem;
+    overflow-y: auto;
+    max-height: 100%;
+    scrollbar-width: thin; /* Firefox */
+    scrollbar-color: color-mix(in hsl, var(--quinary-color) 60%, transparent 40%) transparent; /* Firefox */
+}
+
+/* WebKit browsers */
+.recents-container-fc30be2::-webkit-scrollbar {
+    width: 8px;
+}
+.recents-container-fc30be2::-webkit-scrollbar-track {
+    background: transparent;
+}
+.recents-container-fc30be2::-webkit-scrollbar-thumb {
+    background-color: color-mix(in hsl, var(--quinary-color) 60%, transparent 40%);
+    border-radius: 8px;
+    border: 2px solid transparent;
+    background-clip: content-box;
+}
+.recents-container-fc30be2::-webkit-scrollbar-thumb:hover {
+    background-color: color-mix(in hsl, var(--quinary-color) 75%, transparent 25%);
 }
 
 .recents-card-fc30be2 {
     cursor: pointer;
     margin-top: 0;
+}
+
+.recents-title-fc30be2 {
+    position: relative;
+    top: -8.2rem;
+    left: 0.4rem;
+    margin: 0;
+    padding: 0.2rem 0.4rem;
+    max-width: 90%;
+    color: black;
+    background-color: color-mix(in hsl, var(--quinary-color) 70%, transparent 30%);
+    border-radius: 0.4rem;
+    font-size: 0.75rem;
+    line-height: 1.2;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    opacity: 0;
+    transform: translateY(2px);
+    transition: opacity 0.15s ease, transform 0.15s ease;
+}
+
+@media (prefers-color-scheme: dark) {
+    .recents-container-fc30be2 {
+        scrollbar-color: color-mix(in hsl, var(--quinary-color) 70%, transparent 30%) transparent; /* Firefox */
+    }
+    .recents-container-fc30be2::-webkit-scrollbar-track {
+        background: transparent;
+    }
+    .recents-container-fc30be2::-webkit-scrollbar-thumb {
+        background-color: color-mix(in hsl, var(--quinary-color) 70%, transparent 30%);
+    }
+    .recents-container-fc30be2::-webkit-scrollbar-thumb:hover {
+        background-color: color-mix(in hsl, var(--quinary-color) 85%, transparent 15%);
+    }
+    .recents-title-fc30be2 {
+        color: white;
+    }
+}
+
+.recents-card-fc30be2:hover .recents-title-fc30be2 {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 
@@ -727,6 +992,16 @@
     background-color: transparent;
     box-shadow: none;
     /* box-shadow: 0px 2px 2px 0px var(--quinary-color); */
+    transition: background-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease, color 0.15s ease;
+}
+.btn-767755e:hover {
+    box-shadow: 0 6px 16px color-mix(in hsl, var(--quinary-color) 45%, transparent 55%);
+    transform: translateY(-1px) scale(1.02);
+    cursor: pointer;
+}
+
+.btn-767755e:not(.active-767755e):hover {
+    background-color: color-mix(in hsl, var(--quinary-color) 18%, transparent 82%);
 }
 .btn-767755e + .btn-767755e {
     margin-left: 5px;
@@ -738,6 +1013,16 @@
     height: 35px;
     box-shadow: none;
     /* box-shadow: 0px 2px 2px 0px var(--quinary-color); */
+    transition: background-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease, color 0.15s ease;
+}
+.btn-today-767755e:hover {
+    box-shadow: 0 6px 16px color-mix(in hsl, var(--quinary-color) 45%, transparent 55%);
+    transform: translateY(-1px) scale(1.02);
+    cursor: pointer;
+}
+
+.btn-today-767755e:not(.active-767755e):hover {
+    background-color: color-mix(in hsl, var(--quinary-color) 18%, transparent 82%);
 }
 .active-767755e {
     background-color: color-mix(in hsl, var(--quinary-color) 50%, transparent 50%); 
@@ -926,6 +1211,14 @@
     border: none;
     border-radius: 0.5rem;
     border-radius: 1rem;
+    transition: background-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease, color 0.15s ease;
+    cursor: pointer;
+}
+
+.add_program_button-6386bea:hover {
+    background-color: color-mix(in hsl, var(--quinary-color) 18%, transparent 82%);
+    box-shadow: 0 6px 16px color-mix(in hsl, var(--quinary-color) 45%, transparent 55%);
+    transform: translateY(-1px) scale(1.02);
 }
 
 .add_program_button-6386bea:active {
@@ -940,6 +1233,12 @@
     text-align: center;
     font-size: large;
     border-radius: 2rem;
+    transition: background-color 0.15s ease, box-shadow 0.15s ease, color 0.15s ease;
+}
+
+.add_program_textbox-6386bea:hover {
+    background-color: color-mix(in hsl, var(--quinary-color) 18%, transparent 82%);
+    box-shadow: 0 6px 16px color-mix(in hsl, var(--quinary-color) 35%, transparent 65%);
 }
 
 .add_program_textbox-6386bea:focus {
@@ -956,6 +1255,13 @@
     flex-grow: 1;
     align-content: center;
     cursor: pointer;
+    transition: background-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease, color 0.15s ease;
+}
+
+.add_program_restore_button-6386bea:hover {
+    background-color: color-mix(in hsl, var(--quinary-color) 18%, transparent 82%);
+    box-shadow: 0 6px 16px color-mix(in hsl, var(--quinary-color) 45%, transparent 55%);
+    transform: translateY(-1px) scale(1.02);
 }
 
 .add_program_restore_button-6386bea:active {

@@ -46,10 +46,14 @@
     padding: 1rem;
     height: 3rem;
     /* width: 12rem; */
+    transition: background-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease, color 0.15s ease;
 }
 
 .nav-button:hover {
     /* border: 1px solid var(--tertiary-color); */
+    background-color: color-mix(in hsl, var(--quinary-color) 18%, transparent 82%);
+    box-shadow: 0 6px 16px color-mix(in hsl, var(--quinary-color) 45%, transparent 55%);
+    transform: translateY(-1px) scale(1.02);
     cursor: pointer;
 }
 

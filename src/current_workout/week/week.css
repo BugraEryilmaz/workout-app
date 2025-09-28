@@ -19,6 +19,16 @@
     background-color: transparent;
     box-shadow: none;
     /* box-shadow: 0px 2px 2px 0px var(--quinary-color); */
+    transition: background-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease, color 0.15s ease;
+}
+.btn:hover {
+    box-shadow: 0 6px 16px color-mix(in hsl, var(--quinary-color) 45%, transparent 55%);
+    transform: translateY(-1px) scale(1.02);
+    cursor: pointer;
+}
+
+.btn:not(.active):hover {
+    background-color: color-mix(in hsl, var(--quinary-color) 18%, transparent 82%);
 }
 .btn + .btn {
     margin-left: 5px;
@@ -30,6 +40,16 @@
     height: 35px;
     box-shadow: none;
     /* box-shadow: 0px 2px 2px 0px var(--quinary-color); */
+    transition: background-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease, color 0.15s ease;
+}
+.btn-today:hover {
+    box-shadow: 0 6px 16px color-mix(in hsl, var(--quinary-color) 45%, transparent 55%);
+    transform: translateY(-1px) scale(1.02);
+    cursor: pointer;
+}
+
+.btn-today:not(.active):hover {
+    background-color: color-mix(in hsl, var(--quinary-color) 18%, transparent 82%);
 }
 .active {
     background-color: color-mix(in hsl, var(--quinary-color) 50%, transparent 50%); 

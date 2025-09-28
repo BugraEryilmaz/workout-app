@@ -77,7 +77,7 @@ pub fn WorkoutCard(workouts: RwSignal<Vec<Workout>>) -> impl IntoView {
                                 </form>
                                 // <h3>{ workout.title.clone() }</h3>
                             </div>
-                            <i class="material-symbols"
+                            <i class=stylance::classes!(card_style::delete_icon, "material-symbols")
                                 on:click={move |_| {
                                     spawn_local(async move {
                                         let arg = DeleteWorkoutArgs { workoutid: workout.id };

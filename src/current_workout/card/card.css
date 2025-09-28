@@ -3,6 +3,7 @@
     object-fit: cover;
     aspect-ratio: 16/9;
     border-radius: 0.5rem;
+    transition: transform 0.15s ease, filter 0.15s ease;
 }
 .card-body {
     margin: 1rem;
@@ -14,6 +15,8 @@
     text-align: left;
     height: max-content;
     z-index: 1;
+    cursor: pointer;
+    transition: background-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease, filter 0.15s ease;
 }
 
 .card-body > div {
@@ -23,6 +26,9 @@
 .card-thumbnail {
     margin: 0px;
     height: 5rem;
+    overflow: hidden;
+    border-radius: 0.5rem;
+    transition: transform 0.15s ease;
 }
 .card-duration {
     background-color: RGBA(0, 0, 0, 0.5);
@@ -37,6 +43,31 @@
 .done {
     background-color: RGBA(0, 255, 0, 0.15);
     filter: brightness(0.8) opacity(0.7);
+}
+
+.card-body:hover {
+    box-shadow: 0 6px 16px color-mix(in hsl, var(--quinary-color) 45%, transparent 55%);
+    transform: translateY(-1px) scale(1.01);
+}
+
+/* Only non-done cards should tint background on hover */
+.card-body:not(.done):hover {
+    background-color: color-mix(in hsl, var(--quinary-color) 18%, transparent 82%);
+}
+
+/* Done cards keep their green background but get a subtle feedback */
+.card-body.done:hover {
+    filter: brightness(0.9) opacity(0.85);
+}
+
+/* Optional: slight image emphasis when hovering the card */
+.card-body:hover .card-img {
+    filter: brightness(1.03);
+    transform: scale(1.15);
+}
+
+.card-body:hover .card-thumbnail {
+    transform: scale(1.08);
 }
 .card_checkmark {
     background-color: RGBA(0, 0, 0, 0.7);
