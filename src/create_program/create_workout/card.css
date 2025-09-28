@@ -3,6 +3,7 @@
     object-fit: cover;
     aspect-ratio: 16/9;
     border-radius: 5px;
+    transition: background-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease, color 0.15s ease;
 }
 .card_title_form {
     flex: 1;
@@ -19,6 +20,9 @@
    outline:none;
 }
 
+/* Marker class for Stylance export */
+.delete_icon {}
+
 .card {
     background-color: color-mix(in hsl, var(--quinary-color) 30%, transparent 70%);
     display: flex;
@@ -26,12 +30,39 @@
     align-items: center;
     margin: 5px;
     border-radius: 10px;
+    transition: background-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease, color 0.15s ease;
 }
 .card-body {
     display: flex;
     flex: 1;
     align-items: center;
     flex-direction: row;
+}
+
+.card:hover .card-img {
+    transform: scale(1.08);
+}
+
+/* Hide delete icon until hover */
+.delete_icon {
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(2px);
+    transition: opacity 0.15s ease, transform 0.15s ease, filter 0.15s ease, background-color 0.15s ease, box-shadow 0.15s ease;
+    border-radius: 0.375rem;
+}
+
+.card:hover .delete_icon {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+}
+
+.delete_icon:hover {
+    filter: brightness(1.1);
+    transform: translateY(-1px) scale(1.1);
+    background-color: color-mix(in hsl, var(--quinary-color) 25%, transparent 75%);
+    box-shadow: 0 6px 16px color-mix(in hsl, var(--quinary-color) 45%, transparent 55%);
 }
 .card-thumbnail {
     margin: 9px;

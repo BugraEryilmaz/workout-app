@@ -43,7 +43,7 @@ pub fn CreateProgram(program: Program) -> impl IntoView {
     let day_ids = RwSignal::new(vec![]);
     let workouts: RwSignal<Vec<Workout>> = RwSignal::new(vec![]);
     let recents_list: RwSignal<LruCache<(String, i32, String), Workout>> =
-        RwSignal::new(LruCache::new(4));
+        RwSignal::new(LruCache::new(10));
     let input_element: NodeRef<html::Input> = NodeRef::new();
     spawn_local(async move {
         let arg = GetDayIdsArgs {
@@ -58,7 +58,7 @@ pub fn CreateProgram(program: Program) -> impl IntoView {
         let get_recents = invoke("last_workouts", serde_wasm_bindgen::to_value(&()).unwrap()).await;
         let get_recents: Vec<(String, i32, String)> =
             serde_wasm_bindgen::from_value(get_recents).unwrap();
-        let mut cache = LruCache::new(4);
+        let mut cache = LruCache::new(10);
         for (link, duration, title) in get_recents.iter().rev() {
             cache.put(
                 (link.clone(), duration.clone(), title.clone()),

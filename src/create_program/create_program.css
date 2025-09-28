@@ -7,13 +7,22 @@
     font-size: 2rem;
     margin: 0.3rem;
     text-align: center;
+    border-radius: 0.5rem;
+    padding: 0.25rem 0.5rem;
+    transition: background-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease, color 0.15s ease;
+}
+
+.program_title:hover {
+    background-color: color-mix(in hsl, var(--quinary-color) 18%, transparent 82%);
+    box-shadow: 0 6px 16px color-mix(in hsl, var(--quinary-color) 45%, transparent 55%);
+    transform: translateY(-1px);
 }
 
 .add_workout_section {
     display: flex;
     justify-content: space-around;
     margin-top: 0.5rem;
-    height: 66vh;
+    height: 62vh;
 }
 
 .workout_list {
@@ -45,6 +54,12 @@
     text-align: center;
     font-size: large;
     border-radius: 2rem;
+    transition: background-color 0.15s ease, box-shadow 0.15s ease, color 0.15s ease;
+}
+
+.add_workout_link_textbox:hover {
+    background-color: color-mix(in hsl, var(--quinary-color) 18%, transparent 82%);
+    box-shadow: 0 6px 16px color-mix(in hsl, var(--quinary-color) 35%, transparent 65%);
 }
 
 .add_workout_link_textbox:focus {
@@ -58,6 +73,14 @@
     border: none;
     border-radius: 0.5rem;
     border-radius: 1rem;
+    transition: background-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease, color 0.15s ease;
+    cursor: pointer;
+}
+
+.add_workout_button:hover {
+    background-color: color-mix(in hsl, var(--quinary-color) 18%, transparent 82%);
+    box-shadow: 0 6px 16px color-mix(in hsl, var(--quinary-color) 45%, transparent 55%);
+    transform: translateY(-1px) scale(1.02);
 }
 
 .add_workout_button:active {
