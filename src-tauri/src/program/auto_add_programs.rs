@@ -41,7 +41,7 @@ mod tests {
     #[test]
     fn test_get_programs_from_latest() {
         let json_data = json!({
-          "version": "0.3.0",
+          "version": "0.3.1",
           "notes": "See the assets to download this version and install.",
           "pub_date": "2025-04-08T21:26:53.726Z",
           "platforms": {
